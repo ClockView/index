@@ -140,8 +140,17 @@
     .world-time .city-flag {
       font-size: 1.2rem;
       color: #007B7B;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
-
+    
+    .world-time .flag-img {
+      width: 24px;
+      height: 16px;
+      object-fit: cover;
+      border: 1px solid #ddd;
+    }
     .event-countdown {
       margin-top: 40px;
       padding: 20px;
@@ -294,17 +303,6 @@
         bottom: 130px;
         left: 10px;
       }
-    .world-time .city-flag {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-    }
-    
-    .world-time .flag-img {
-        width: 24px;
-        height: 16px;
-        object-fit: cover;
-        border: 1px solid #ddd;
     }
   </style>
 </head>
@@ -381,7 +379,6 @@
       <h3>Advertising</h3>
       <p>Space reserved for advertisements.</p>
     </div>
-
     <section class="event-countdown">
       <div class="event-box">
         <img src="GTAVI.jpg" alt="Capa do jogo GTA VI" />
@@ -470,32 +467,31 @@
         { name: "Moscow", timezone: "Europe/Moscow", flag: "russia.png" },
         { name: "Buenos Aires", timezone: "America/Argentina/Buenos_Aires", flag: "argentina.png" },
         { name: "Lisbon", timezone: "Europe/Lisbon", flag: "portugal.png" }
-    ];
-    const container = document.getElementById("worldClockSection");
-    container.innerHTML = "";
+      ];
+      const container = document.getElementById("worldClockSection");
+      container.innerHTML = "";
 
-    cities.forEach(city => {
+      cities.forEach(city => {
         const now = new Date().toLocaleTimeString('en-US', {
-            hour: '2-digit',
-            minute: '2-digit',
-            second: '2-digit',
-            hour12: false,
-            timeZone: city.timezone
+          hour: '2-digit',
+          minute: '2-digit',
+          second: '2-digit',
+          hour12: false,
+          timeZone: city.timezone
         });
 
         const div = document.createElement("div");
         div.className = "world-time";
         div.innerHTML = `
-            <div class="time">${now}</div>
-            <div class="city-flag">
-                <img src="images/${city.flag}" alt="${city.name}" class="flag-img">
-                ${city.name}
-            </div>
+          <div class="time">${now}</div>
+          <div class="city-flag">
+            <img src="${city.flag}" alt="${city.name}" class="flag-img">
+            ${city.name}
+          </div>
         `;
         container.appendChild(div);
-    });
-}
-
+      });
+    }
     // ===== CRONÔMETRO =====
     let stopwatchInterval;
     let stopwatchTime = 0;
