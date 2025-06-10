@@ -1,0 +1,29 @@
+/ (raiz do site)
+├── index.html
+├── manifest.json
+├── sw.js
+├── favicon.png
+├── icon-192.png
+└── icon-512.png
+
+
+Prepare os ícones:
+
+Crie duas imagens na raiz do site:
+
+icon-192.png (192x192 pixels)
+
+icon-512.png (512x512 pixels)
+
+Sugestão: use seu logo em fundo transparente
+
+Dica Importante:
+Para testar localmente antes de subir para o servidor:
+
+Use um servidor local como Live Server (VS Code)
+
+Acesse pelo Chrome em https://localhost
+
+No DevTools (F12), vá em Application > Service Workers para verificar o registro
+
+Precisa de ajuda com os ícones ou com o upload para o servidor? Posso te guiar passo a passo! 

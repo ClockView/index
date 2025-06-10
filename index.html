@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Acesse a hora certa, data, cronômetro, timer, despertador e horários internacionais no ClockView. Uma experiência moderna além do tempo." />
+  <link rel="icon" href="/favicon.png" type="image/png" />
+  <!-- Adições PWA -->
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#007B7B">
+  <title>ClockView</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f7f7f7;
+      color: #007B7B;
+      text-align: center;
+    }
+
+    .ads-top,
+    .ads-section,
+    .ads-middle {
+      padding: 20px;
+      background-color: #f2f2f2;
+      min-height: 100px;
+    }
+
+    .ads-top h3,
+    .ads-section h3,
+    .ads-middle h3 {
+      margin: 0;
+      font-size: 1.5rem;
+    }
+
+    .ads-top p,
+    .ads-section p,
+    .ads-middle p {
+      font-size: 1rem;
+      margin-top: 5px;
+    }
+
+    header {
+      padding: 0;
+      background: #ffffff;
+    }
+
+    header img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 10px;
+    }
+
+    .clock-container {
+      font-size: 5rem;
+      margin: 20px auto 10px;
+      font-weight: bold;
+    }
+
+    .date-container {
+      font-size: 1.4rem;
+      margin-bottom: 20px;
+    }
+
+    .features {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      padding: 20px;
+    }
+
+    .feature-box {
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 12px;
+      padding: 20px;
+      width: 300px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    }
+
+    .feature-box button {
+      margin: 5px;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      background-color: #007B7B;
+      color: white;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background-color 0.3s ease;
+    }
+
+    .feature-box button:hover {
+      background-color: #005f5f;
+    }
+
+    .feature-box input {
+      margin-bottom: 10px;
+      padding: 8px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      width: 100%;
+    }
+
+    .world-clock {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      padding: 20px;
+    }
+
+    .world-time {
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 12px;
+      padding: 10px;
+      width: 180px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .world-time .time {
+      font-weight: bold;
+      font-size: 2rem;
+      margin-bottom: 10px;
+      color: #007B7B;
+    }
+
+    .world-time .city-flag {
+      font-size: 1.2rem;
+      color: #007B7B;
+    }
+
+    .event-countdown {
+      margin-top: 40px;
+      padding: 20px;
+      background-color: #ffffff;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .event-box {
+      background: #f0f0f0;
+      border-radius: 12px;
+      padding: 15px;
+      width: 250px;
+      text-align: center;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    }
+
+    .event-box img {
+      width: 100%;
+      border-radius: 10px;
+      margin-bottom: 10px;
+    }
+
+    .event-box h4 {
+      margin: 10px 0 5px;
+      color: #333;
+    }
+
+    .event-box p {
+      font-size: 1.2rem;
+      color: #007B7B;
+    }
+
+    footer {
+      margin-top: 40px;
+      padding: 10px;
+      background-color: #ddd;
+      font-size: 0.9rem;
+    }
+
+    .chronometer-title {
+      background-color: #E5FF33;
+      padding: 5px 10px;
+      border-radius: 8px;
+      font-weight: bold;
+      font-size: 1.5rem;
+      font-family: inherit;
+    }
+
+    .alarm-notification {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: #FF9800;
+      color: white;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      z-index: 1000;
+      display: none;
+    }
+
+    #installContainer {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      display: none;
+      z-index: 1000;
+    }
+    #installPWA {
+      background-color: #E5FF33;
+      color: #007B7B;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 8px;
+      font-weight: bold;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
+
+    /* Botão de Compartilhamento */
+    .share-btn {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      background-color: #007B7B;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      font-size: 1.5rem;
+      cursor: pointer;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .share-options {
+      position: fixed;
+      bottom: 80px;
+      left: 20px;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      padding: 10px;
+      z-index: 1000;
+      display: none;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .share-options a {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 8px;
+      text-decoration: none;
+      color: #333;
+    }
+
+    .share-options a:hover {
+      background-color: #f0f0f0;
+    }
+
+    @media (max-width: 768px) {
+      .feature-box,
+      .world-time,
+      .event-box {
+        width: 90%;
+      }
+      .clock-container {
+        font-size: 3rem;
+      }
+      #installContainer {
+        bottom: 10px;
+        right: 10px;
+      }
+      .share-btn {
+        bottom: 70px;
+        left: 10px;
+      }
+      .share-options {
+        bottom: 130px;
+        left: 10px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="ads-top">
+    <h3>Advertising</h3>
+    <p>Space reserved for advertisements.</p>
+  </div>
+
+  <header>
+    <img src="ClockView_Logo3.jpg" alt="ClockView Logo" />
+  </header>
+
+  <main>
+    <div class="clock-container" id="clock"></div>
+    <div class="date-container" id="date"></div>
+
+    <div class="features">
+      <div class="feature-box">
+        <div style="background-color: #E5FF33; padding: 6px 12px; border-radius: 8px;">
+          <h2 class="chronometer-title">Chronometer</h2>
+        </div>
+        <div id="stopwatch" style="font-size: 2.5rem; font-weight: bold; margin: 15px 0;">00:00:00.000</div>
+        <button id="stopwatchStart">Start</button>
+        <button id="stopwatchPause">Pause</button>
+        <button id="stopwatchReset">Reset</button>
+        <div id="laps" style="margin-top: 10px; text-align: left;"></div>
+      </div>
+
+      <div class="feature-box">
+        <div style="background-color: #E5FF33; padding: 6px 12px; border-radius: 8px;">
+          <h2 class="chronometer-title">Countdown Timer</h2>
+        </div>
+        <input 
+           type="text" 
+           id="countdownDisplay" 
+           style="font-size: 2.5rem; font-weight: bold; margin: 15px 0; color: #007B7B; text-align: center; border: none; background: transparent; width: 100%;" 
+           value="00:00:00.000"
+        >    
+        <div style="display: flex; gap: 5px;">
+          <button id="timerStart">Start</button>
+          <button id="timerPause">Pause</button>
+          <button id="timerReset">Reset</button>
+        </div>
+      </div>
+
+      <div class="feature-box">
+        <div style="background-color: #E5FF33; padding: 6px 12px; border-radius: 8px;">
+          <h2 class="chronometer-title">Alarm Clock</h2>
+        </div>
+        <input 
+          type="text" 
+          id="alarmTimeDisplay" 
+          style="font-size: 2.5rem; font-weight: bold; margin: 15px 0; color: #007B7B; text-align: center; border: none; background: transparent; width: 100%;" 
+          value="00:00"
+         >
+         <div style="display: flex; gap: 5px; justify-content: center;">
+           <button id="setAlarm">Activate Alarm</button>
+           <button id="cancelAlarm" style="background-color: #007B7B;">Cancel</button>
+         </div>
+       </div>
+    </div>
+
+    <!-- Novo espaço de publicidade adicionado aqui -->
+    <div class="ads-middle">
+      <h3>Advertising</h3>
+      <p>Space reserved for advertisements.</p>
+    </div>
+
+    <section class="world-clock" id="worldClockSection"></section>
+
+    <div class="ads-section">
+      <h3>Advertising</h3>
+      <p>Space reserved for advertisements.</p>
+    </div>
+
+    <section class="event-countdown">
+      <div class="event-box">
+        <img src="GTAVI.jpg" alt="Capa do jogo GTA VI" />
+        <h4>Release of GTA VI</h4>
+        <div style="font-size: 0.9rem; color: #666; margin-bottom: 8px;">May 26, 2026</div>
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 4px;">
+          <span style="font-size: 1rem;">Left</span>
+          <span id="countdownGTA" style="font-size: 1.4rem; font-weight: bold; color: #007B7B;">000d 00h 00m 00s</span>
+        </div>
+      </div>
+      <div class="event-box">
+        <img src="FH6.jpg" alt="Capa do jogo Forza Horizon 6" />
+        <h4>Launch of FORZA HORIZON 6</h4>
+        <div style="font-size: 0.9rem; color: #666; margin-bottom: 8px;">November 15, 2026</div>
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 4px;">
+          <span style="font-size: 1rem;">Left</span>
+          <span id="countdownFH6" style="font-size: 1.4rem; font-weight: bold; color: #007B7B;">000d 00h 00m 00s</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="ads-section">
+      <h3>Advertising</h3>
+      <p>Space reserved for advertisements.</p>
+    </section>
+  </main>
+
+  <div class="alarm-notification" id="alarmNotification">
+    ⏰ Alarm triggered! Click to deactivate.
+  </div>
+
+  <div id="installContainer">
+    <button id="installPWA">⬇️ Instalar App</button>
+  </div>
+
+  <!-- Botão de Compartilhamento -->
+  <button class="share-btn" id="shareButton">↗️</button>
+  <div class="share-options" id="shareOptions">
+    <a href="#" id="shareWhatsApp">
+      <img src="https://cdn-icons-png.flaticon.com/512/1384/1384023.png" width="24" height="24" alt="WhatsApp">
+      WhatsApp
+    </a>
+    <a href="#" id="shareEmail">
+      <img src="https://cdn-icons-png.flaticon.com/512/732/732200.png" width="24" height="24" alt="Email">
+      Email
+    </a>
+    <a href="#" id="shareOther">
+      <img src="https://cdn-icons-png.flaticon.com/512/1560/1560946.png" width="24" height="24" alt="Outros">
+      Outras opções
+    </a>
+  </div>
+
+  <audio id="alarmSound" src="alarm.mp3" preload="auto"></audio>
+
+  <img src="ClockView_Logo4.jpg" alt="ClockView Logo Alternativa" style="display: block; margin: 0 auto; max-width: 100%;" />
+
+  <footer>
+    &copy; 2025 ClockView. All rights reserved.
+  </footer>
+  <script>
+    // ===== RELÓGIO PRINCIPAL =====
+    function updateLocalClock() {
+      const now = new Date();
+      const clock = document.getElementById('clock');
+      const date = document.getElementById('date');
+
+      clock.textContent = now.toLocaleTimeString('pt-BR', { hour12: false });
+      date.textContent = now.toLocaleDateString('en-US', {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      });
+    }
+
+    // ===== RELÓGIO MUNDIAL =====
+    function updateWorldClocks() {
+      const cities = [
+        { name: "New York", timezone: "America/New_York", flag: "🇺🇸" },
+        { name: "London", timezone: "Europe/London", flag: "🇬🇧" },
+        { name: "Tokyo", timezone: "Asia/Tokyo", flag: "🇯🇵" },
+        { name: "São Paulo", timezone: "America/Sao_Paulo", flag: "🇧🇷" },
+        { name: "Sydney", timezone: "Australia/Sydney", flag: "🇦🇺" },
+        { name: "Paris", timezone: "Europe/Paris", flag: "🇫🇷" },
+        { name: "Dubai", timezone: "Asia/Dubai", flag: "🇦🇪" },
+        { name: "Moscow", timezone: "Europe/Moscow", flag: "🇷🇺" },
+        { name: "Buenos Aires", timezone: "America/Argentina/Buenos_Aires", flag: "🇦🇷" },
+        { name: "Lisbon", timezone: "Europe/Lisbon", flag: "🇵🇹" }
+      ];
+      const container = document.getElementById("worldClockSection");
+      container.innerHTML = "";
+
+      cities.forEach(city => {
+        const now = new Date().toLocaleTimeString('en-US', {
+          hour: '2-digit',
+          minute: '2-digit',
+          second: '2-digit',
+          hour12: false,
+          timeZone: city.timezone
+        });
+
+        const div = document.createElement("div");
+        div.className = "world-time";
+        div.innerHTML = `<div class="time">${now}</div><div class="city-flag">${city.flag} ${city.name}</div>`;
+        container.appendChild(div);
+      });
+    }
+
+    // ===== CRONÔMETRO =====
+    let stopwatchInterval;
+    let stopwatchTime = 0;
+    let isStopwatchRunning = false;
+
+    function formatStopwatchTime(ms) {
+      const date = new Date(ms);
+      return date.toISOString().substr(11, 8) + '.' + Math.floor(ms % 1000).toString().padStart(3, '0');
+    }
+
+    function saveStopwatchState() {
+      localStorage.setItem('stopwatch', JSON.stringify({
+        time: stopwatchTime,
+        isRunning: isStopwatchRunning,
+        laps: document.getElementById('laps').innerHTML
+      }));
+    }
+
+    function loadStopwatchState() {
+      const saved = JSON.parse(localStorage.getItem('stopwatch'));
+      if (saved) {
+        stopwatchTime = saved.time;
+        document.getElementById('stopwatch').textContent = formatStopwatchTime(saved.time);
+        document.getElementById('laps').innerHTML = saved.laps || '';
+        if (saved.isRunning) {
+          document.getElementById('stopwatchStart').click();
+        }
+      }
+    }
+
+    document.getElementById('stopwatchStart').addEventListener('click', () => {
+      if (!isStopwatchRunning) {
+        isStopwatchRunning = true;
+        const startTime = Date.now() - stopwatchTime;
+        stopwatchInterval = setInterval(() => {
+          stopwatchTime = Date.now() - startTime;
+          document.getElementById('stopwatch').textContent = formatStopwatchTime(stopwatchTime);
+          saveStopwatchState();
+        }, 10);
+      }
+    });
+
+    document.getElementById('stopwatchPause').addEventListener('click', () => {
+      clearInterval(stopwatchInterval);
+      isStopwatchRunning = false;
+      saveStopwatchState();
+    });
+
+    document.getElementById('stopwatchReset').addEventListener('click', () => {
+      clearInterval(stopwatchInterval);
+      isStopwatchRunning = false;
+      stopwatchTime = 0;
+      document.getElementById('stopwatch').textContent = '00:00:00.000';
+      document.getElementById('laps').innerHTML = '';
+      saveStopwatchState();
+    });
+
+    // ===== TEMPORIZADOR =====
+    let timerInterval;
+    let totalMilliseconds = 0;
+    let isTimerRunning = false;
+    let timerStartTime;
+
+    function formatTimeWithMilliseconds(ms) {
+      const date = new Date(ms);
+      return date.toISOString().substr(11, 8) + '.' + Math.floor(ms % 1000).toString().padStart(3, '0');
+    }
+
+    function updateTimerDisplay() {
+      document.getElementById('countdownDisplay').value = formatTimeWithMilliseconds(totalMilliseconds);
+    }
+
+    document.getElementById('countdownDisplay').addEventListener('change', function() {
+      if (!isTimerRunning) {
+        const parts = this.value.split(/[:.]/);
+        let hours = 0, minutes = 0, seconds = 0, milliseconds = 0;
+    
+        if (parts.length === 4) {
+          hours = parseInt(parts[0]) || 0;
+          minutes = parseInt(parts[1]) || 0;
+          seconds = parseInt(parts[2]) || 0;
+          milliseconds = parseInt(parts[3]) || 0;
+        }
+    
+        totalMilliseconds = (hours * 3600 + minutes * 60 + seconds) * 1000 + milliseconds;
+        updateTimerDisplay();
+      }
+    });
+
+    document.getElementById('timerStart').addEventListener('click', () => {
+      if (!isTimerRunning && totalMilliseconds > 0) {
+        isTimerRunning = true;
+        timerStartTime = Date.now();
+    
+        timerInterval = setInterval(() => {
+          const elapsed = Date.now() - timerStartTime;
+          const remaining = Math.max(0, totalMilliseconds - elapsed);
+      
+          document.getElementById('countdownDisplay').value = formatTimeWithMilliseconds(remaining);
+      
+          if (remaining <= 0) {
+            clearInterval(timerInterval);
+            isTimerRunning = false;
+            document.getElementById('alarmSound').play();
+            alert("⏰ Time's up!");
+          }
+        }, 10);
+      }
+    });
+
+    document.getElementById('timerPause').addEventListener('click', () => {
+      if (isTimerRunning) {
+        clearInterval(timerInterval);
+        const elapsed = Date.now() - timerStartTime;
+        totalMilliseconds = Math.max(0, totalMilliseconds - elapsed);
+        isTimerRunning = false;
+        updateTimerDisplay();
+      }
+    });
+
+    document.getElementById('timerReset').addEventListener('click', () => {
+      clearInterval(timerInterval);
+      isTimerRunning = false;
+      totalMilliseconds = 0;
+      document.getElementById('countdownDisplay').value = '00:00:00.000';
+    });
+
+    // ===== ALARME =====
+    let alarmTimeout;
+    const alarmSound = document.getElementById('alarmSound');
+    const alarmNotification = document.getElementById('alarmNotification');
+
+    document.getElementById('alarmTimeDisplay').addEventListener('input', function(e) {
+      let value = this.value.replace(/\D/g, '');
+      if (value.length > 2) {
+        value = value.substring(0, 2) + ':' + value.substring(2, 4);
+      }
+      this.value = value;
+    });
+
+    document.getElementById('alarmTimeDisplay').addEventListener('blur', function() {
+      if (this.value.length === 1) {
+        this.value = '0' + this.value;
+      }
+      if (this.value.length === 2 && !this.value.includes(':')) {
+        this.value = this.value + ':';
+      }
+    });
+
+    document.getElementById('setAlarm').addEventListener('click', () => {
+      const alarmTimeInput = document.getElementById('alarmTimeDisplay').value;
+      
+      if (!alarmTimeInput || !alarmTimeInput.includes(':')) {
+        alert("Invalid format. Use HH:MM (ex: 07:30)");
+        return;
+      }
+
+      const [hours, minutes] = alarmTimeInput.split(':').map(Number);
+      
+      if (isNaN(hours) || isNaN(minutes) || hours > 23 || minutes > 59) {
+        alert("Invalid time. Use HH:MM (ex: 07:30)");
+        return;
+      }
+
+      const now = new Date();
+      const alarmTime = new Date(now.getFullYear(), now.getMonth(), now.getDate(), hours, minutes);
+
+      if (alarmTime < now) {
+        alarmTime.setDate(alarmTime.getDate() + 1);
+      }
+
+      const timeUntilAlarm = alarmTime - now;
+      
+      if (alarmTimeout) {
+        clearTimeout(alarmTimeout);
+      }
+      
+      alarmTimeout = setTimeout(() => {
+        alarmSound.loop = true;
+        alarmSound.play();
+        alarmNotification.style.display = 'block';
+      }, timeUntilAlarm);
+      
+      alert(`Alarm set for ${alarmTime.toLocaleTimeString()}`);
+    });
+
+    document.getElementById('cancelAlarm').addEventListener('click', () => {
+      if (alarmTimeout) {
+        clearTimeout(alarmTimeout);
+        alarmTimeout = null;
+      }
+      alarmSound.pause();
+      alarmSound.currentTime = 0;
+      alarmNotification.style.display = 'none';
+    });
+
+    alarmNotification.onclick = function() {
+      alarmSound.pause();
+      alarmSound.currentTime = 0;
+      this.style.display = 'none';
+    };
+
+    // ===== PWA =====
+    let deferredPrompt;
+    const installContainer = document.getElementById('installContainer');
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      installContainer.style.display = 'block';
+      
+      document.getElementById('installPWA').addEventListener('click', () => {
+        deferredPrompt.prompt();
+        deferredPrompt.userChoice.then(choiceResult => {
+          if (choiceResult.outcome === 'accepted') {
+            installContainer.style.display = 'none';
+          }
+        });
+      });
+    });
+
+    window.addEventListener('appinstalled', () => {
+      installContainer.style.display = 'none';
+    });
+
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js')
+          .then(registration => console.log('Service Worker registrado com sucesso'))
+          .catch(err => console.log('Falha no registro: ', err));
+      });
+    }
+
+    // ===== COMPARTILHAMENTO =====
+    const shareButton = document.getElementById('shareButton');
+    const shareOptions = document.getElementById('shareOptions');
+    const currentUrl = encodeURIComponent(window.location.href);
+    const shareText = encodeURIComponent("Check out this cool clock app: ClockView");
+
+    shareButton.addEventListener('click', () => {
+      shareOptions.style.display = shareOptions.style.display === 'flex' ? 'none' : 'flex';
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!shareButton.contains(e.target) && !shareOptions.contains(e.target)) {
+        shareOptions.style.display = 'none';
+      }
+    });
+
+    document.getElementById('shareWhatsApp').addEventListener('click', (e) => {
+      e.preventDefault();
+      window.open(`https://wa.me/?text=${shareText}%20${currentUrl}`, '_blank');
+      shareOptions.style.display = 'none';
+    });
+
+    document.getElementById('shareEmail').addEventListener('click', (e) => {
+      e.preventDefault();
+      window.location.href = `mailto:?subject=${shareText}&body=${shareText}%20${currentUrl}`;
+      shareOptions.style.display = 'none';
+    });
+
+    document.getElementById('shareOther').addEventListener('click', async (e) => {
+      e.preventDefault();
+      try {
+        if (navigator.share) {
+          await navigator.share({
+            title: 'ClockView',
+            text: shareText,
+            url: window.location.href
+          });
+        } else {
+          const dummy = document.createElement('input');
+          document.body.appendChild(dummy);
+          dummy.value = window.location.href;
+          dummy.select();
+          document.execCommand('copy');
+          document.body.removeChild(dummy);
+          alert('Link copied to clipboard!');
+        }
+      } catch (err) {
+        console.log('Error sharing:', err);
+      }
+      shareOptions.style.display = 'none';
+    });
+
+    // ===== INICIALIZAÇÃO =====
+    const clockInterval = setInterval(() => {
+      updateLocalClock();
+      updateWorldClocks();
+    }, 1000);
+
+    updateLocalClock();
+    updateWorldClocks();
+    updateTimerDisplay();
+    loadStopwatchState();
+
+    // ===== CONTADOR GERAL =====
+    function updateCountdown(elementId, targetDate) {
+      const launchDate = new Date(targetDate).getTime();
+      const now = new Date().getTime();
+      const distance = launchDate - now;
+
+      if (distance > 0) {
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24)).toString().padStart(3, '0');
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2, '0');
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000).toString().padStart(2, '0');
+
+        document.getElementById(elementId).textContent = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+      } else {
+        document.getElementById(elementId).textContent = "Released!";
+      }
+    }
+
+    const countdownInterval = setInterval(() => {
+      updateCountdown("countdownGTA", "May 26, 2026 00:00:00 GMT-0300");
+      updateCountdown("countdownFH6", "November 15, 2026 00:00:00 GMT-0300");
+    }, 1000);
+
+    window.addEventListener('beforeunload', () => {
+      clearInterval(clockInterval);
+      clearInterval(stopwatchInterval);
+      clearInterval(timerInterval);
+      clearInterval(countdownInterval);
+    });
+  </script>
+</body>
+</html>

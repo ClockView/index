@@ -1,0 +1,21 @@
+{
+  "name": "ClockView",
+  "short_name": "ClockView",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f7f7f7",
+  "theme_color": "#007B7B",
+  "description": "Relógio online com cronômetro, temporizador e alarme",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "icon-512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ]
+}
