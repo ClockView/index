@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Acesse a hora certa, data, cronômetro, timer, despertador e horários internacionais no ClockView. Uma experiência moderna além do tempo." />
+  <meta name="description" content="Access the correct time, date, stopwatch, timer, alarm clock, and international times on ClockView. An experience of time." />
   <link rel="icon" href="/favicon.png" type="image/png" />
   <!-- Adições PWA -->
   <link rel="manifest" href="/manifest.json">
@@ -449,16 +449,16 @@
     // ===== RELÓGIO MUNDIAL =====
     function updateWorldClocks() {
       const cities = [
-        { name: "New York", timezone: "America/New_York", flag: "🇺🇸" },
-        { name: "London", timezone: "Europe/London", flag: "🇬🇧" },
-        { name: "Tokyo", timezone: "Asia/Tokyo", flag: "🇯🇵" },
-        { name: "São Paulo", timezone: "America/Sao_Paulo", flag: "🇧🇷" },
-        { name: "Sydney", timezone: "Australia/Sydney", flag: "🇦🇺" },
-        { name: "Paris", timezone: "Europe/Paris", flag: "🇫🇷" },
-        { name: "Dubai", timezone: "Asia/Dubai", flag: "🇦🇪" },
-        { name: "Moscow", timezone: "Europe/Moscow", flag: "🇷🇺" },
-        { name: "Buenos Aires", timezone: "America/Argentina/Buenos_Aires", flag: "🇦🇷" },
-        { name: "Lisbon", timezone: "Europe/Lisbon", flag: "🇵🇹" }
+        { name: "New York", timezone: "America/New_York", flag: "usa.png" },
+        { name: "London", timezone: "Europe/London", flag: "uk.png" },
+        { name: "Tokyo", timezone: "Asia/Tokyo", flag: "japan.png" },
+        { name: "São Paulo", timezone: "America/Sao_Paulo", flag: "brazil.png" },
+        { name: "Sydney", timezone: "Australia/Sydney", flag: "australia.png" },
+        { name: "Paris", timezone: "Europe/Paris", flag: "france.png" },
+        { name: "Dubai", timezone: "Asia/Dubai", flag: "uae.png" },
+        { name: "Moscow", timezone: "Europe/Moscow", flag: "russia.png" },
+        { name: "Buenos Aires", timezone: "America/Argentina/Buenos_Aires", flag: "argentina.png" },
+        { name: "Lisbon", timezone: "Europe/Lisbon", flag: "portugal.png" }
       ];
       const container = document.getElementById("worldClockSection");
       container.innerHTML = "";
