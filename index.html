@@ -4,46 +4,122 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Access the correct time, date, stopwatch, timer, alarm clock, and international times on ClockView. An experience of time." />
+  <meta name="description" content="Accurate world clocks, alarms, timers in 20+ languages. Free online tools for time management with countdowns and timezone converter">
+  <meta name="keywords" content="world clock, online alarm, countdown timer, timezone converter, stopwatch, time management">
+  <!-- Open Graph -->
+  <meta property="og:title" content="ClockView - Your Global Time Manager">
+  <meta property="og:description" content="Real-time clocks for 100+ cities with alarms and timers">
   <link rel="icon" href="/favicon.png" type="image/png" />
-  <!-- Adições PWA -->
+  <!-- PWA Config -->
   <link rel="manifest" href="/manifest.json">
-  <meta name="theme-color" content="#007B7B">
-  <title>ClockView</title>
+  <meta name="theme-color" content="#11354c">
+  <title>ClockView - World Time Manager</title>
+  <!-- Font Awesome para ícones sociais -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <style>
+    :root {
+      --primary-color: #11354c;
+      --secondary-color: #5ac7f5;
+      --text-color: #11354c;
+      --bg-color: #f7f7f7;
+      --feature-bg: #fff;
+      --feature-border: #ddd;
+      --logo-color: #11354c;
+      --logo-view-color: #5ac7f5;
+      --logo-online-color: #11354c;
+      --icon-box-border: #11354c;
+      --icon-fill: #11354c;
+      --ad-bg: #f7f7f7;
+      font-size: 16px; /* Base para rem */
+    }
+
+    .dark-mode {
+      --primary-color: #11354c;
+      --secondary-color: #5ac7f5;
+      --text-color: #ffffff;
+      --bg-color: #0a1e2c;
+      --feature-bg: #11354c;
+      --feature-border: #1a4b6d;
+      --logo-color: #ffffff;
+      --logo-view-color: #5ac7f5;
+      --logo-online-color: #ffffff;
+      --icon-box-border: #ffffff;
+      --icon-fill: #ffffff;
+      --ad-bg: #0a1e2c;
+    }
+
+    .focus-mode {
+      --primary-color: #11354c;
+      --secondary-color: #5ac7f5;
+      --text-color: #ffffff;
+      --bg-color: #0a1e2c;
+      --feature-bg: transparent;
+      --feature-border: transparent;
+      --logo-color: #ffffff;
+      --logo-view-color: #5ac7f5;
+      --logo-online-color: #ffffff;
+      --icon-box-border: #ffffff;
+      --icon-fill: #ffffff;
+      --ad-bg: transparent;
+    }
+
     body {
       margin: 0;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #f7f7f7;
-      color: #007B7B;
+      background-color: var(--bg-color);
+      color: var(--text-color);
       text-align: center;
+      transition: background-color 0.3s, color 0.3s;
     }
 
-    .ads-top,
-    .ads-section,
-    .ads-middle {
-      padding: 20px;
-      background-color: #f2f2f2;
+    .top-bar {
+      height: 8px;
+      width: 100%;
+      background: linear-gradient(90deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    }
+
+    .focus-mode .top-bar {
+      display: none;
+    }
+
+    /* AdSense Containers */
+    .ad-slot {
+      margin: 15px auto;
+      background: rgba(0,0,0,0.03);
+      border-radius: 4px;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100px;
+      transition: background-color 0.3s;
+    }
+
+    .ad-top {
+      width: 100%;
+      max-width: 728px;
+      height: 90px;
+    }
+
+    .ad-middle {
+      width: 300px;
+      height: 250px;
+    }
+
+    .ad-section {
+      width: 100%;
+      max-width: 1200px;
+      height: auto;
       min-height: 100px;
     }
 
-    .ads-top h3,
-    .ads-section h3,
-    .ads-middle h3 {
-      margin: 0;
-      font-size: 1.5rem;
-    }
-
-    .ads-top p,
-    .ads-section p,
-    .ads-middle p {
-      font-size: 1rem;
-      margin-top: 5px;
+    .focus-mode .ad-slot {
+      display: none;
     }
 
     header {
       padding: 0;
-      background: #ffffff;
+      background: var(--bg-color);
     }
 
     header img {
@@ -55,17 +131,34 @@
     h1 {
       font-size: 2rem;
       margin-bottom: 10px;
+      color: var(--text-color);
     }
 
     .clock-container {
-      font-size: 5rem;
+      font-size: clamp(2.5rem, 10vw, 5rem);
       margin: 20px auto 10px;
       font-weight: bold;
+      color: var(--text-color);
+    }
+
+    .focus-mode .clock-container {
+      font-size: clamp(8rem, 15vw, 15rem);
+      margin: 20px auto 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 50vh;
     }
 
     .date-container {
-      font-size: 1.4rem;
+      font-size: clamp(1rem, 3vw, 1.4rem);
       margin-bottom: 20px;
+      color: var(--text-color);
+    }
+
+    .focus-mode .date-container {
+      font-size: 1.6rem;
+      margin-bottom: 40px;
     }
 
     .features {
@@ -74,15 +167,63 @@
       justify-content: center;
       gap: 20px;
       padding: 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .focus-mode .features {
+      display: none;
     }
 
     .feature-box {
-      background: #fff;
-      border: 1px solid #ddd;
+      background: var(--feature-bg);
+      border: 1px solid var(--feature-border);
       border-radius: 12px;
-      padding: 20px;
-      width: 300px;
+      padding: 15px;
+      width: 280px;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+      flex: 1 1 280px;
+    }
+
+    .feature-title-container {
+      background: linear-gradient(90deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+      padding: 4px 10px;
+      border-radius: 8px;
+      margin-bottom: 15px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .chronometer-title {
+      font-weight: bold;
+      font-size: 1.5rem;
+      color: white;
+      margin: 0;
+    }
+
+    .section-title-container {
+      background: linear-gradient(90deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+      padding: 4px 10px;
+      border-radius: 8px;
+      margin: 20px auto;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      max-width: 1200px;
+    }
+
+    .focus-mode .section-title-container {
+      display: none;
+    }
+
+    .section-title {
+      font-weight: bold;
+      font-size: 1.5rem;
+      color: white;
+      margin: 0;
     }
 
     .feature-box button {
@@ -90,7 +231,7 @@
       padding: 10px 20px;
       border: none;
       border-radius: 8px;
-      background-color: #007B7B;
+      background-color: var(--primary-color);
       color: white;
       cursor: pointer;
       font-size: 1rem;
@@ -98,7 +239,7 @@
     }
 
     .feature-box button:hover {
-      background-color: #005f5f;
+      background-color: #0a2536;
     }
 
     .feature-box input {
@@ -107,62 +248,105 @@
       border-radius: 6px;
       border: 1px solid #ccc;
       width: 100%;
+      font-size: 2.5rem;
+      font-weight: bold;
+      color: var(--text-color);
+      text-align: center;
+      border: none;
+      background: transparent;
     }
 
     .world-clock {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      gap: 20px;
+      gap: 15px;
       padding: 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .focus-mode .world-clock {
+      display: none;
     }
 
     .world-time {
-      background: #fff;
-      border: 1px solid #ddd;
+      background: var(--feature-bg);
+      border: 1px solid var(--feature-border);
       border-radius: 12px;
       padding: 10px;
-      width: 180px;
+      width: calc(20% - 20px);
+      min-width: 180px;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
       cursor: pointer;
       display: flex;
       flex-direction: column;
       align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .world-time::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 4px;
+      height: 100%;
+      background: linear-gradient(to bottom, var(--primary-color) 0%, var(--secondary-color) 100%);
     }
 
     .world-time .time {
       font-weight: bold;
-      font-size: 2rem;
+      font-size: 1.5rem;
       margin-bottom: 10px;
-      color: #007B7B;
+      color: var(--text-color);
     }
 
     .world-time .city-flag {
-      font-size: 1.2rem;
-      color: #007B7B;
+      font-size: 1rem;
+      color: var(--text-color);
       display: flex;
       align-items: center;
-      gap: 8px;
+      width: 100%;
     }
     
     .world-time .flag-img {
-      width: 24px;
-      height: 16px;
-      object-fit: cover;
-      border: 1px solid #ddd;
+      object-fit: contain;
+      width: 32px;
+      height: 24px;
+      margin-right: 8px;
+      flex: 0 0 40%;
+      display: flex;
+      justify-content: flex-end;
     }
+    
+    .world-time .city-name {
+      flex: 0 0 60%;
+      text-align: left;
+      display: flex;
+      align-items: center;
+    }
+
     .event-countdown {
       margin-top: 40px;
       padding: 20px;
-      background-color: #ffffff;
+      background-color: var(--bg-color);
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
       gap: 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .focus-mode .event-countdown {
+      display: none;
     }
 
     .event-box {
-      background: #f0f0f0;
+      background: var(--feature-bg);
+      border: 1px solid var(--feature-border);
       border-radius: 12px;
       padding: 15px;
       width: 250px;
@@ -178,35 +362,312 @@
 
     .event-box h4 {
       margin: 10px 0 5px;
-      color: #333;
+      color: var(--text-color);
     }
 
     .event-box p {
       font-size: 1.2rem;
-      color: #007B7B;
+      color: var(--text-color);
     }
 
     footer {
-      margin-top: 40px;
-      padding: 10px;
-      background-color: #ddd;
+      margin-top: 20px;
+      padding: 15px 10px;
+      background: linear-gradient(90deg, #0a1a26 0%, #11354c 100%);
+      color: white;
       font-size: 0.9rem;
+      position: relative;
     }
 
-    .chronometer-title {
-      background-color: #E5FF33;
-      padding: 5px 10px;
-      border-radius: 8px;
-      font-weight: bold;
+    .focus-mode footer {
+      display: none;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .footer-columns {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+    }
+
+    .footer-logo {
+      width: 33.33%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 0;
+      transform: scale(1.1);
+    }
+
+    .footer-logo .logo {
+      display: flex;
+      align-items: center;
+      margin-bottom: 5px;
+    }
+
+    .footer-logo .logo-text {
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .footer-logo .logo-line {
+      font-size: 30.8px;
+      font-weight: 400;
+      color: white;
+    }
+
+    .footer-logo .logo-line span.view {
+      color: #5ac7f5;
+      font-weight: 500;
+    }
+
+    .footer-logo .dot-online {
+      position: absolute;
+      top: 37.4px;
+      left: 66px;
+      font-size: 10px;
+      color: white;
+      letter-spacing: 2px;
+    }
+
+    .footer-logo .icon-box {
+      margin-left: 11px;
+      width: 38.5px;
+      height: 57.2px;
+      border: 1px solid white;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .footer-logo .icon-box svg {
+      width: 20px;
+      height: 20px;
+      fill: white;
+    }
+
+    .footer-logo .slogan {
+      font-size: 0.9rem;
+      color: white;
+      margin-top: 5px;
+      text-align: center;
+    }
+
+    .footer-social {
+      width: 33.33%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .social-links-title {
+      font-size: 1.1rem;
+      margin-bottom: 5px;
+    }
+
+    .social-icons {
+      display: flex;
+      gap: 15px;
+      margin-top: 10px;
+    }
+
+    .social-icons a {
+      color: white;
       font-size: 1.5rem;
-      font-family: inherit;
+      transition: transform 0.3s;
+    }
+
+    .social-icons a:hover {
+      transform: scale(1.2);
+    }
+
+    .footer-partner {
+      width: 33.33%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .partner-text {
+      font-size: 1rem;
+      color: white;
+      margin-bottom: 5px;
+    }
+
+    .spinmix-logo {
+      font-family: 'Montserrat', sans-serif;
+      text-align: center;
+    }
+
+    .spinmix-logo .logo-main {
+      font-size: 1.8rem;
+      font-weight: 800;
+    }
+
+    .spinmix-logo .spin {
+      color: white;
+    }
+
+    .spinmix-logo .mix {
+      color: #D50000;
+      position: relative;
+      display: inline-block;
+    }
+
+    .spinmix-logo .logo-sub {
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.9rem;
+      letter-spacing: 0.1em;
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      margin-top: -5px;
+      color: white;
+    }
+
+    .copyright {
+      margin-top: 15px;
+      font-size: 0.8rem;
+      opacity: 0.9;
+      text-align: center;
+    }
+
+    .copyright-line {
+      margin: 3px 0;
+    }
+
+    .terms-link {
+      color: #5ac7f5;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .terms-link:hover {
+      text-decoration: underline;
+    }
+
+    .terms-popup {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 80%;
+      max-width: 800px;
+      max-height: 80vh;
+      background: var(--feature-bg);
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      z-index: 2000;
+      overflow: hidden;
+    }
+
+    .terms-popup-top {
+      height: 8px;
+      width: 100%;
+      background: linear-gradient(90deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    }
+
+    .terms-popup-content {
+      padding: 20px;
+      color: var(--primary-color);
+      overflow-y: auto;
+      max-height: calc(80vh - 60px);
+    }
+
+    .terms-popup h3 {
+      margin-top: 0;
+      color: var(--primary-color);
+    }
+
+    .terms-popup-close {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      cursor: pointer;
+      color: var(--primary-color);
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    /* How to Use Popup */
+    .how-to-use-popup {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 80%;
+      max-width: 800px;
+      max-height: 80vh;
+      background: var(--feature-bg);
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      z-index: 2000;
+      overflow: hidden;
+    }
+
+    .how-to-use-popup-top {
+      height: 8px;
+      width: 100%;
+      background: linear-gradient(90deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    }
+
+    .how-to-use-popup-content {
+      padding: 20px;
+      color: var(--primary-color);
+      overflow-y: auto;
+      max-height: calc(80vh - 60px);
+    }
+
+    .how-to-use-popup h3 {
+      margin-top: 0;
+      color: var(--primary-color);
+      text-align: center;
+    }
+
+    .how-to-use-popup h4 {
+      color: var(--primary-color);
+      margin-top: 20px;
+      border-bottom: 1px solid var(--secondary-color);
+      padding-bottom: 5px;
+    }
+
+    .how-to-use-popup ul {
+      text-align: left;
+      padding-left: 20px;
+    }
+
+    .how-to-use-popup li {
+      margin-bottom: 10px;
+    }
+
+    .how-to-use-popup-close {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      cursor: pointer;
+      color: var(--primary-color);
+      font-size: 1.5rem;
+      font-weight: bold;
     }
 
     .alarm-notification {
       position: fixed;
       top: 20px;
       right: 20px;
-      background: #FF9800;
+      background: var(--primary-color);
       color: white;
       padding: 15px;
       border-radius: 8px;
@@ -223,8 +684,8 @@
       z-index: 1000;
     }
     #installPWA {
-      background-color: #E5FF33;
-      color: #007B7B;
+      background-color: var(--secondary-color);
+      color: var(--primary-color);
       border: none;
       padding: 10px 15px;
       border-radius: 8px;
@@ -234,24 +695,99 @@
       font-size: 0.9rem;
     }
 
-    /* Botão de Compartilhamento */
+    /* Menu Icon and Dark Mode Toggle */
+    .header-controls {
+      position: fixed;
+      top: 128px;
+      right: 20px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      z-index: 1000;
+    }
+
+    .dark-mode-toggle, .focus-mode-toggle {
+      color: var(--primary-color);
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: color 0.3s;
+      text-transform: uppercase;
+    }
+
+    .dark-mode .dark-mode-toggle, 
+    .dark-mode .focus-mode-toggle,
+    .dark-mode .menu-icon {
+      color: var(--secondary-color);
+    }
+
+    .menu-icon {
+      cursor: pointer;
+      color: var(--primary-color);
+      font-size: 1.8rem;
+    }
+
+    .menu-dropdown {
+      position: fixed;
+      top: 160px;
+      right: 20px;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      padding: 10px 0;
+      z-index: 1001;
+      display: none;
+      flex-direction: column;
+      width: 180px;
+      max-height: 70vh;
+      overflow-y: auto;
+    }
+
+    .dark-mode .menu-dropdown {
+      background: #1e1e1e;
+    }
+
+    .menu-dropdown a {
+      padding: 10px 15px;
+      text-decoration: none;
+      color: #333;
+    }
+
+    .dark-mode .menu-dropdown a {
+      color: white;
+    }
+
+    .menu-dropdown a:hover {
+      background-color: #f0f0f0;
+    }
+
+    .dark-mode .menu-dropdown a:hover {
+      background-color: #333;
+    }
+
+    /* Custom Share Button */
     .share-btn {
       position: fixed;
       bottom: 20px;
       left: 20px;
-      background-color: #007B7B;
+      background-color: var(--primary-color);
       color: white;
       border: none;
       border-radius: 50%;
       width: 50px;
       height: 50px;
-      font-size: 1.5rem;
       cursor: pointer;
       box-shadow: 0 2px 10px rgba(0,0,0,0.2);
       z-index: 1000;
       display: flex;
       align-items: center;
       justify-content: center;
+    }
+
+    .share-btn svg {
+      width: 24px;
+      height: 24px;
+      fill: white;
     }
 
     .share-options {
@@ -268,6 +804,10 @@
       gap: 8px;
     }
 
+    .dark-mode .share-options {
+      background: #1e1e1e;
+    }
+
     .share-options a {
       display: flex;
       align-items: center;
@@ -278,8 +818,234 @@
       color: #333;
     }
 
+    .dark-mode .share-options a {
+      color: white;
+    }
+
     .share-options a:hover {
       background-color: #f0f0f0;
+    }
+
+    .dark-mode .share-options a:hover {
+      background-color: #333;
+    }
+
+    /* Estilos da Nova Logomarca */
+    .logo-header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      background: var(--bg-color);
+    }
+
+    .focus-mode .logo-header {
+      padding: 40px 20px 20px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+    }
+
+    .logo-text {
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .logo-line {
+      font-size: 48px;
+      font-weight: 400;
+      color: var(--logo-color);
+    }
+
+    .logo-line span.view {
+      color: var(--logo-view-color);
+      font-weight: 500;
+    }
+
+    .dot-online {
+      position: absolute;
+      top: 58px;
+      left: 104px;
+      font-size: 14px;
+      color: var(--logo-online-color);
+      letter-spacing: 4px;
+    }
+
+    .icon-box {
+      margin-left: 20px;
+      width: 60px;
+      height: 90px;
+      border: 2px solid var(--icon-box-border);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .icon-box svg {
+      width: 36px;
+      height: 36px;
+      fill: var(--icon-fill);
+      animation: swing 1.8s infinite ease-in-out;
+      transform-origin: top center;
+    }
+
+    /* Estilo para os dígitos do alarme */
+    .alarm-time-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .alarm-digit-box {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      width: 80px;
+      height: 60px;
+      background-color: var(--feature-bg);
+      border: 2px solid var(--secondary-color);
+      border-radius: 8px;
+      margin: 0 5px;
+      font-size: 2.5rem;
+      font-weight: bold;
+      color: var(--text-color);
+    }
+
+    .alarm-separator {
+      display: inline-block;
+      margin: 0 5px;
+      font-size: 2.5rem;
+      font-weight: bold;
+      color: var(--text-color);
+    }
+
+    /* Estilo para o popup de conta */
+    .account-popup {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 300px;
+      background: var(--feature-bg);
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      z-index: 2000;
+      overflow: hidden;
+    }
+
+    .dark-mode .account-popup {
+      background: var(--feature-bg);
+    }
+
+    .account-popup-top {
+      height: 8px;
+      width: 100%;
+      background: linear-gradient(90deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    }
+
+    .account-popup-content {
+      padding: 20px;
+      color: var(--primary-color);
+    }
+
+    .account-popup h3 {
+      margin-top: 0;
+      color: var(--primary-color);
+    }
+
+    .account-popup p {
+      margin: 10px 0;
+    }
+
+    .account-popup .label {
+      color: var(--primary-color);
+      font-weight: 500;
+      text-align: right;
+      padding-right: 10px;
+      width: 50%;
+    }
+
+    .account-popup .value {
+      color: var(--secondary-color);
+      font-weight: bold;
+      text-align: left;
+      width: 50%;
+    }
+
+    .account-popup .account-row {
+      display: flex;
+      margin-bottom: 8px;
+    }
+
+    .account-popup-close {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      cursor: pointer;
+      color: var(--primary-color);
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    /* Popup Codestore */
+    .codestore-popup {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 300px;
+      background: var(--feature-bg);
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      z-index: 2000;
+      overflow: hidden;
+    }
+
+    .codestore-popup-top {
+      height: 8px;
+      width: 100%;
+      background: linear-gradient(90deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    }
+
+    .codestore-popup-content {
+      padding: 20px;
+      color: var(--primary-color);
+    }
+
+    .codestore-popup h3 {
+      margin-top: 0;
+      color: var(--primary-color);
+      text-align: center;
+    }
+
+    .codestore-popup p {
+      margin: 10px 0;
+      text-align: center;
+    }
+
+    .codestore-popup-close {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      cursor: pointer;
+      color: var(--primary-color);
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    @keyframes swing {
+      0%, 100% { transform: rotate(0deg); }
+      25% { transform: rotate(6deg); }
+      50% { transform: rotate(0deg); }
+      75% { transform: rotate(-6deg); }
     }
 
     @media (max-width: 768px) {
@@ -287,9 +1053,14 @@
       .world-time,
       .event-box {
         width: 90%;
+        min-width: unset;
       }
       .clock-container {
         font-size: 3rem;
+      }
+      .focus-mode .clock-container {
+        font-size: 8rem;
+        min-height: 40vh;
       }
       #installContainer {
         bottom: 10px;
@@ -303,18 +1074,253 @@
         bottom: 130px;
         left: 10px;
       }
+      .header-controls {
+        top: 108px;
+      }
+      .menu-dropdown {
+        top: 140px;
+      }
+      .logo-line {
+        font-size: 36px;
+      }
+      .dot-online {
+        top: 44px;
+        left: 78px;
+        font-size: 12px;
+      }
+      .icon-box {
+        width: 50px;
+        height: 75px;
+      }
+      .world-time {
+        width: calc(50% - 20px);
+      }
+      .footer-columns {
+        flex-direction: column;
+        gap: 20px;
+      }
+      .footer-logo, 
+      .footer-social, 
+      .footer-partner {
+        width: 100%;
+      }
+      .footer-logo .logo-line {
+        font-size: 24px;
+      }
+      .footer-logo .dot-online {
+        top: 30px;
+        left: 52px;
+      }
+      .footer-logo .icon-box {
+        width: 30px;
+        height: 45px;
+      }
+      .spinmix-logo .logo-main {
+        font-size: 1.5rem;
+      }
+      .social-icons {
+        gap: 10px;
+      }
+      .social-icons a {
+        font-size: 1.2rem;
+      }
+      
+      .alarm-digit-box {
+        width: 60px;
+        height: 50px;
+        font-size: 2rem;
+      }
+      
+      .account-popup,
+      .codestore-popup,
+      .how-to-use-popup {
+        width: 90%;
+      }
+    }
+
+    @media (max-width: 320px) {
+      body {
+        padding: 5px;
+      }
+      
+      .feature-box {
+        margin: 5px;
+        padding: 8px;
+      }
+      
+      .world-time {
+        width: 100%;
+        margin-bottom: 8px;
+      }
     }
   </style>
 </head>
 
 <body>
-  <div class="ads-top">
-    <h3>Advertising</h3>
-    <p>Space reserved for advertisements.</p>
+  <div class="top-bar"></div>
+  
+  <div class="ad-slot ad-top">
+    <!-- AdSense Leaderboard (728x90) -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_PUBLISHER_ID"
+     crossorigin="anonymous"></script>
+    <ins class="adsbygoogle"
+         style="display:inline-block;width:728px;height:90px"
+         data-ad-client="ca-pub-YOUR_PUBLISHER_ID"
+         data-ad-slot="YOUR_LEADERBOARD_SLOT"></ins>
+    <script>
+         (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
   </div>
 
-  <header>
-    <img src="ClockView_Logo3.jpg" alt="ClockView Logo" />
+  <div class="header-controls">
+    <div class="focus-mode-toggle" id="focusModeToggle">FOCUS MODE</div>
+    <div class="dark-mode-toggle" id="darkModeToggle">DARK MODE</div>
+    <div class="menu-icon">☰</div>
+  </div>
+  <div class="menu-dropdown" id="menuDropdown">
+    <a href="#" id="myAccount">My Account</a>
+    <a href="#" id="howToUse">How to Use</a>
+    <a href="#" id="settings">Settings</a>
+    <a href="#" id="blog">Blog</a>
+    <a href="#" id="codestore">CODESTORE</a>
+    <a href="#" id="googleSignIn">Sign in with Google</a>
+  </div>
+
+  <!-- Popup da conta -->
+  <div class="account-popup" id="accountPopup">
+    <div class="account-popup-top"></div>
+    <div class="account-popup-content">
+      <span class="account-popup-close" id="accountPopupClose">&times;</span>
+      <h3>Welcome!</h3>
+      <div class="account-row">
+        <span class="label">Member since:</span>
+        <span class="value">00/00/0000</span>
+      </div>
+      <div class="account-row">
+        <span class="label">Your visits:</span>
+        <span class="value">0000</span>
+      </div>
+      <div class="account-row">
+        <span class="label">Logged time:</span>
+        <span class="value">000d 00h 00m 00s</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Popup Codestore -->
+  <div class="codestore-popup" id="codestorePopup">
+    <div class="codestore-popup-top"></div>
+    <div class="codestore-popup-content">
+      <span class="codestore-popup-close" id="codestorePopupClose">&times;</span>
+      <h3>CODESTORE</h3>
+      <p>The official store of CODEONE group websites, including ClockView where you will find exclusive physical and digital products. Stay tuned. We'll soon announce the launch date of our store, with special discounts for ClockView followers.</p>
+    </div>
+  </div>
+
+  <!-- Popup Terms -->
+  <div class="terms-popup" id="termsPopup">
+    <div class="terms-popup-top"></div>
+    <div class="terms-popup-content">
+      <span class="terms-popup-close" id="termsPopupClose">&times;</span>
+      <h3>Terms of Use and Privacy</h3>
+      <div id="termsContent">
+        <!-- Content will be added here when available -->
+      </div>
+    </div>
+  </div>
+
+  <!-- How to Use Popup -->
+  <div class="how-to-use-popup" id="howToUsePopup">
+    <div class="how-to-use-popup-top"></div>
+    <div class="how-to-use-popup-content">
+      <span class="how-to-use-popup-close" id="howToUsePopupClose">&times;</span>
+      <h3>ClockView - The Complete Time Experience</h3>
+      
+      <h4>1. Main Clock & Date</h4>
+      <ul>
+        <li>Displays your local time in 24-hour format with current date</li>
+        <li>Updates in real-time every second</li>
+        <li>Automatically adjusts to your device's timezone</li>
+      </ul>
+      
+      <h4>2. World Clocks</h4>
+      <ul>
+        <li>Shows current time in 40+ major cities worldwide</li>
+        <li>Scroll through the alphabetical list</li>
+        <li>Times update automatically with flags for reference</li>
+      </ul>
+      
+      <h4>3. Chronometer (Stopwatch)</h4>
+      <ul>
+        <li><strong>Start</strong>: Begins counting time</li>
+        <li><strong>Pause</strong>: Temporarily stops the count</li>
+        <li><strong>Reset</strong>: Returns to 00:00:00.000</li>
+        <li>Millisecond precision with lap time functionality</li>
+      </ul>
+      
+      <h4>4. Countdown Timer</h4>
+      <ul>
+        <li>Set any duration in HH:MM:SS.ms format</li>
+        <li>Alarm sounds when timer reaches zero</li>
+        <li>Pause and reset functionality</li>
+      </ul>
+      
+      <h4>5. Alarm Clock</h4>
+      <ul>
+        <li>Click digits to set hour/minute</li>
+        <li>"Activate Alarm" to set, "Cancel" to stop</li>
+        <li>Visual notification appears with sound when triggered</li>
+      </ul>
+      
+      <h4>6. Event Countdowns</h4>
+      <ul>
+        <li>Tracks time remaining to major events</li>
+        <li>Currently tracking:
+          <ul>
+            <li>GTA VI Release (May 26, 2026)</li>
+            <li>Forza Horizon 6 (November 15, 2026)</li>
+          </ul>
+        </li>
+      </ul>
+      
+      <h4>7. Display Modes</h4>
+      <ul>
+        <li><strong>Normal Mode</strong>: Default view with all features</li>
+        <li><strong>Dark Mode</strong>: Dark color scheme for night use</li>
+        <li><strong>Focus Mode</strong>: Minimalist clock-only view (exit with ESC or click)</li>
+      </ul>
+      
+      <h4>8. Additional Features</h4>
+      <ul>
+        <li><strong>Install as App</strong>: Available on supported devices</li>
+        <li><strong>Share</strong>: Via WhatsApp, Email or other apps</li>
+        <li><strong>Account</strong>: Track your usage statistics</li>
+      </ul>
+      
+      <h4>Tips for Best Experience</h4>
+      <ul>
+        <li>Enable browser notifications for alarms</li>
+        <li>Use Focus Mode during presentations</li>
+        <li>Dark Mode reduces eye strain at night</li>
+        <li>All features work on mobile devices</li>
+      </ul>
+    </div>
+  </div>
+
+  <header class="logo-header">
+    <div class="logo">
+      <div class="logo-text">
+        <div class="logo-line">
+          Clock<span class="view">View</span>
+        </div>
+        <div class="dot-online">. o n l i n e</div>
+      </div>
+      <div class="icon-box">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <path d="M12 2a1 1 0 011 1v1.07c3.39.49 6 3.39 6 6.93v4l1 2v1H4v-1l1-2v-4c0-3.54 2.61-6.44 6-6.93V3a1 1 0 011-1zm0 20a2.5 2.5 0 002.45-2h-4.9A2.5 2.5 0 0012 22z"/>
+        </svg>
+      </div>
+    </div>
   </header>
 
   <main>
@@ -323,10 +1329,10 @@
 
     <div class="features">
       <div class="feature-box">
-        <div style="background-color: #E5FF33; padding: 6px 12px; border-radius: 8px;">
+        <div class="feature-title-container">
           <h2 class="chronometer-title">Chronometer</h2>
         </div>
-        <div id="stopwatch" style="font-size: 2.5rem; font-weight: bold; margin: 15px 0;">00:00:00.000</div>
+        <div id="stopwatch" style="font-size: 2.5rem; font-weight: bold; margin: 15px 0; color: var(--text-color);">00:00:00.000</div>
         <button id="stopwatchStart">Start</button>
         <button id="stopwatchPause">Pause</button>
         <button id="stopwatchReset">Reset</button>
@@ -334,16 +1340,15 @@
       </div>
 
       <div class="feature-box">
-        <div style="background-color: #E5FF33; padding: 6px 12px; border-radius: 8px;">
+        <div class="feature-title-container">
           <h2 class="chronometer-title">Countdown Timer</h2>
         </div>
         <input 
            type="text" 
            id="countdownDisplay" 
-           style="font-size: 2.5rem; font-weight: bold; margin: 15px 0; color: #007B7B; text-align: center; border: none; background: transparent; width: 100%;" 
            value="00:00:00.000"
         >    
-        <div style="display: flex; gap: 5px;">
+        <div style="display: flex; gap: 5px; justify-content: center;">
           <button id="timerStart">Start</button>
           <button id="timerPause">Pause</button>
           <button id="timerReset">Reset</button>
@@ -351,59 +1356,100 @@
       </div>
 
       <div class="feature-box">
-        <div style="background-color: #E5FF33; padding: 6px 12px; border-radius: 8px;">
+        <div class="feature-title-container">
           <h2 class="chronometer-title">Alarm Clock</h2>
+        </div>
+        <div class="alarm-time-container">
+          <div class="alarm-digit-box" id="alarmHour">00</div>
+          <div class="alarm-separator">:</div>
+          <div class="alarm-digit-box" id="alarmMinute">00</div>
         </div>
         <input 
           type="text" 
           id="alarmTimeDisplay" 
-          style="font-size: 2.5rem; font-weight: bold; margin: 15px 0; color: #007B7B; text-align: center; border: none; background: transparent; width: 100%;" 
           value="00:00"
+          style="display: none;"
          >
          <div style="display: flex; gap: 5px; justify-content: center;">
            <button id="setAlarm">Activate Alarm</button>
-           <button id="cancelAlarm" style="background-color: #007B7B;">Cancel</button>
+           <button id="cancelAlarm">Cancel</button>
          </div>
        </div>
     </div>
 
-    <!-- Novo espaço de publicidade adicionado aqui -->
-    <div class="ads-middle">
-      <h3>Advertising</h3>
-      <p>Space reserved for advertisements.</p>
+    <div class="ad-slot ad-middle">
+      <!-- AdSense Medium Rectangle (300x250) -->
+      <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_PUBLISHER_ID"
+       crossorigin="anonymous"></script>
+      <ins class="adsbygoogle"
+           style="display:inline-block;width:300px;height:250px"
+           data-ad-client="ca-pub-YOUR_PUBLISHER_ID"
+           data-ad-slot="YOUR_MEDIUM_RECTANGLE_SLOT"></ins>
+      <script>
+           (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+    </div>
+
+    <div class="section-title-container">
+      <h2 class="section-title">World Clocks</h2>
     </div>
 
     <section class="world-clock" id="worldClockSection"></section>
 
-    <div class="ads-section">
-      <h3>Advertising</h3>
-      <p>Space reserved for advertisements.</p>
+    <div class="ad-slot ad-section">
+      <!-- AdSense Section Ad -->
+      <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_PUBLISHER_ID"
+       crossorigin="anonymous"></script>
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-YOUR_PUBLISHER_ID"
+           data-ad-slot="YOUR_SECTION_SLOT"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>
+           (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
     </div>
+
+    <div class="section-title-container">
+      <h2 class="section-title">Special Events | Countdown</h2>
+    </div>
+
     <section class="event-countdown">
       <div class="event-box">
         <img src="GTAVI.jpg" alt="Capa do jogo GTA VI" />
-        <h4>Release of GTA VI</h4>
-        <div style="font-size: 0.9rem; color: #666; margin-bottom: 8px;">May 26, 2026</div>
+        <h4 style="color: var(--text-color);">Release of GTA VI</h4>
+        <div style="font-size: 0.9rem; color: var(--text-color); margin-bottom: 8px;">May 26, 2026</div>
         <div style="display: flex; flex-direction: column; align-items: center; gap: 4px;">
-          <span style="font-size: 1rem;">Left</span>
-          <span id="countdownGTA" style="font-size: 1.4rem; font-weight: bold; color: #007B7B;">000d 00h 00m 00s</span>
+          <span style="font-size: 1rem; color: var(--text-color);">Time Left</span>
+          <span id="countdownGTA" style="font-size: 1.4rem; font-weight: bold; color: var(--text-color);">000d 00h 00m 00s</span>
         </div>
       </div>
       <div class="event-box">
         <img src="FH6.jpg" alt="Capa do jogo Forza Horizon 6" />
-        <h4>Launch of FORZA HORIZON 6</h4>
-        <div style="font-size: 0.9rem; color: #666; margin-bottom: 8px;">November 15, 2026</div>
+        <h4 style="color: var(--text-color);">Launch of FORZA HORIZON 6</h4>
+        <div style="font-size: 0.9rem; color: var(--text-color); margin-bottom: 8px;">November 15, 2026</div>
         <div style="display: flex; flex-direction: column; align-items: center; gap: 4px;">
-          <span style="font-size: 1rem;">Left</span>
-          <span id="countdownFH6" style="font-size: 1.4rem; font-weight: bold; color: #007B7B;">000d 00h 00m 00s</span>
+          <span style="font-size: 1rem; color: var(--text-color);">Time Left</span>
+          <span id="countdownFH6" style="font-size: 1.4rem; font-weight: bold; color: var(--text-color);">000d 00h 00m 00s</span>
         </div>
       </div>
     </section>
 
-    <section class="ads-section">
-      <h3>Advertising</h3>
-      <p>Space reserved for advertisements.</p>
-    </section>
+    <div class="ad-slot ad-section">
+      <!-- Another AdSense Section Ad -->
+      <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_PUBLISHER_ID"
+       crossorigin="anonymous"></script>
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-YOUR_PUBLISHER_ID"
+           data-ad-slot="YOUR_SECTION_SLOT_2"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>
+           (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+    </div>
   </main>
 
   <div class="alarm-notification" id="alarmNotification">
@@ -411,11 +1457,15 @@
   </div>
 
   <div id="installContainer">
-    <button id="installPWA">⬇️ Instalar App</button>
+    <button id="installPWA">⬇️ Install App</button>
   </div>
 
   <!-- Botão de Compartilhamento -->
-  <button class="share-btn" id="shareButton">↗️</button>
+  <button class="share-btn" id="shareButton">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path d="M18 16c-.8 0-1.5.3-2 .9l-7-4.1c.1-.2.1-.5.1-.8s0-.6-.1-.8l7-4.1c.5.5 1.2.9 2 .9 1.7 0 3-1.3 3-3s-1.3-3-3-3-3 1.3-3 3c0 .3 0 .6.1.8l-7 4.1c-.5-.5-1.2-.9-2-.9-1.7 0-3 1.3-3 3s1.3 3 3 3c.8 0 1.5-.3 2-.9l7 4.1c-.1.2-.1.5-.1.8 0 1.7 1.3 3 3 3s3-1.3 3-3-1.3-3-3-3z"/>
+    </svg>
+  </button>
   <div class="share-options" id="shareOptions">
     <a href="#" id="shareWhatsApp">
       <img src="https://cdn-icons-png.flaticon.com/512/1384/1384023.png" width="24" height="24" alt="WhatsApp">
@@ -427,17 +1477,95 @@
     </a>
     <a href="#" id="shareOther">
       <img src="https://cdn-icons-png.flaticon.com/512/1560/1560946.png" width="24" height="24" alt="Outros">
-      Outras opções
+      Other options
     </a>
   </div>
 
   <audio id="alarmSound" src="alarm.mp3" preload="auto"></audio>
 
-  <img src="ClockView_Logo4.jpg" alt="ClockView Logo Alternativa" style="display: block; margin: 0 auto; max-width: 100%;" />
-
   <footer>
-    &copy; 2025 ClockView. All rights reserved.
+    <div class="footer-content">
+      <div class="footer-columns">
+        <!-- Coluna 1 - Logo ClockView -->
+        <div class="footer-logo">
+          <div class="logo">
+            <div class="logo-text">
+              <div class="logo-line">
+                Clock<span class="view">View</span>
+              </div>
+              <div class="dot-online">. o n l i n e</div>
+            </div>
+            <div class="icon-box">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path d="M12 2a1 1 0 011 1v1.07c3.39.49 6 3.39 6 6.93v4l1 2v1H4v-1l1-2v-4c0-3.54 2.61-6.44 6-6.93V3a1 1 0 011-1zm0 20a2.5 2.5 0 002.45-2h-4.9A2.5 2.5 0 0012 22z"/>
+              </svg>
+            </div>
+          </div>
+          <div class="slogan">The right time, on your time</div>
+        </div>
+        
+        <!-- Coluna 2 - Redes Sociais -->
+        <div class="footer-social">
+          <div class="social-links-title">Visit our social networks</div>
+          <div class="social-icons">
+            <a href="https://www.instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.facebook.com" target="_blank"><i class="fab fa-facebook"></i></a>
+            <a href="https://twitter.com" target="_blank"><i class="fab fa-x-twitter"></i></a>
+            <a href="https://www.youtube.com" target="_blank"><i class="fab fa-youtube"></i></a>
+            <a href="https://wa.me/seunumero" target="_blank"><i class="fab fa-whatsapp"></i></a>
+          </div>
+        </div>
+        
+        <!-- Coluna 3 - Logo SpinMix -->
+        <div class="footer-partner">
+          <div class="partner-text">Visit also:</div>
+          <a href="https://www.spinmix.online" target="_blank" class="spinmix-logo">
+            <div class="logo-main">
+              <span class="spin">Spin</span><span class="mix">Mix
+                <div class="logo-sub">.online</div>
+              </span>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <div class="copyright">
+        <div class="copyright-line">Conception, brands and names protected by copyright and intellectual property law.</div>
+        <div class="copyright-line"><span class="terms-link" id="termsLink">Terms of Use and Privacy</span> | ClockView.online©2025 | The right time, on your time | All rights reserved</div>
+        <div class="copyright-line">www.clockview.online</div>
+      </div>
+    </div>
   </footer>
+  
+  <!-- Language Detection and Translation System -->
+  <script>
+    // Detecção automática + fallback
+    const userLang = navigator.language.split('-')[0];
+    const supportedLangs = ['en', 'pt', 'es']; // Adicione mais
+
+    if (!supportedLangs.includes(userLang)) {
+      document.documentElement.lang = 'en';
+    } else {
+      document.documentElement.lang = userLang;
+    }
+
+    // Carrega traduções dinamicamente
+    document.addEventListener('DOMContentLoaded', () => {
+      const elements = document.querySelectorAll('[data-i18n]');
+      
+      fetch(`/assets/translations/${document.documentElement.lang}.json`)
+        .then(res => res.json())
+        .then(translations => {
+          elements.forEach(el => {
+            const key = el.getAttribute('data-i18n');
+            el.textContent = translations[key];
+          });
+        })
+        .catch(() => console.log('Translation not found'));
+    });
+  </script>
+
+  <!-- Main Application Script -->
   <script>
     // ===== RELÓGIO PRINCIPAL =====
     function updateLocalClock() {
@@ -457,17 +1585,63 @@
     // ===== RELÓGIO MUNDIAL =====
     function updateWorldClocks() {
       const cities = [
-        { name: "New York", timezone: "America/New_York", flag: "usa.png" },
-        { name: "London", timezone: "Europe/London", flag: "uk.png" },
-        { name: "Tokyo", timezone: "Asia/Tokyo", flag: "japan.png" },
-        { name: "São Paulo", timezone: "America/Sao_Paulo", flag: "brazil.png" },
-        { name: "Sydney", timezone: "Australia/Sydney", flag: "australia.png" },
-        { name: "Paris", timezone: "Europe/Paris", flag: "france.png" },
-        { name: "Dubai", timezone: "Asia/Dubai", flag: "uae.png" },
-        { name: "Moscow", timezone: "Europe/Moscow", flag: "russia.png" },
-        { name: "Buenos Aires", timezone: "America/Argentina/Buenos_Aires", flag: "argentina.png" },
-        { name: "Lisbon", timezone: "Europe/Lisbon", flag: "portugal.png" }
+        { name: "Adelaide", timezone: "Australia/Adelaide", flagCode: "au" },
+        { name: "Amsterdam", timezone: "Europe/Amsterdam", flagCode: "nl" },
+        { name: "Athens", timezone: "Europe/Athens", flagCode: "gr" },
+        { name: "Austin", timezone: "America/Chicago", flagCode: "us" },
+        { name: "Barcelona", timezone: "Europe/Madrid", flagCode: "es" },
+        { name: "Beijing", timezone: "Asia/Shanghai", flagCode: "cn" },
+        { name: "Budapest", timezone: "Europe/Budapest", flagCode: "hu" },
+        { name: "Buenos Aires", timezone: "America/Argentina/Buenos_Aires", flagCode: "ar" },
+        { name: "Cairo", timezone: "Africa/Cairo", flagCode: "eg" },
+        { name: "Cartagena", timezone: "America/Bogota", flagCode: "co" },
+        { name: "Catar", timezone: "Asia/Qatar", flagCode: "qa" },
+        { name: "Delhi", timezone: "Asia/Kolkata", flagCode: "in" },
+        { name: "Dhaka", timezone: "Asia/Dhaka", flagCode: "bd" },
+        { name: "Dubai", timezone: "Asia/Dubai", flagCode: "ae" },
+        { name: "Istanbul", timezone: "Europe/Istanbul", flagCode: "tr" },
+        { name: "Jerusalem", timezone: "Asia/Jerusalem", flagCode: "il" },
+        { name: "Kiev", timezone: "Europe/Kiev", flagCode: "ua" },
+        { name: "Kolkata", timezone: "Asia/Kolkata", flagCode: "in" },
+        { name: "Lagos", timezone: "Africa/Lagos", flagCode: "ng" },
+        { name: "Lahore", timezone: "Asia/Karachi", flagCode: "pk" },
+        { name: "Le Mans", timezone: "Europe/Paris", flagCode: "fr" },
+        { name: "Lisbon", timezone: "Europe/Lisbon", flagCode: "pt" },
+        { name: "London", timezone: "Europe/London", flagCode: "gb" },
+        { name: "Los Angeles", timezone: "America/Los_Angeles", flagCode: "us" },
+        { name: "Madrid", timezone: "Europe/Madrid", flagCode: "es" },
+        { name: "Male", timezone: "Indian/Maldives", flagCode: "mv" },
+        { name: "Manila", timezone: "Asia/Manila", flagCode: "ph" },
+        { name: "Melbourne", timezone: "Australia/Melbourne", flagCode: "au" },
+        { name: "Mexico City", timezone: "America/Mexico_City", flagCode: "mx" },
+        { name: "Miami", timezone: "America/New_York", flagCode: "us" },
+        { name: "Montreal", timezone: "America/Toronto", flagCode: "ca" },
+        { name: "Monaco", timezone: "Europe/Monaco", flagCode: "mc" },
+        { name: "Moscow", timezone: "Europe/Moscow", flagCode: "ru" },
+        { name: "Mumbai", timezone: "Asia/Kolkata", flagCode: "in" },
+        { name: "New York", timezone: "America/New_York", flagCode: "us" },
+        { name: "Osaka", timezone: "Asia/Tokyo", flagCode: "jp" },
+        { name: "Paris", timezone: "Europe/Paris", flagCode: "fr" },
+        { name: "Rio de Janeiro", timezone: "America/Sao_Paulo", flagCode: "br" },
+        { name: "Rome", timezone: "Europe/Rome", flagCode: "it" },
+        { name: "Santiago", timezone: "America/Santiago", flagCode: "cl" },
+        { name: "Santo Domingo", timezone: "America/Santo_Domingo", flagCode: "do" },
+        { name: "São Paulo", timezone: "America/Sao_Paulo", flagCode: "br" },
+        { name: "Shanghai", timezone: "Asia/Shanghai", flagCode: "cn" },
+        { name: "Silverstone", timezone: "Europe/London", flagCode: "gb" },
+        { name: "Sochi", timezone: "Europe/Moscow", flagCode: "ru" },
+        { name: "Suzuka", timezone: "Asia/Tokyo", flagCode: "jp" },
+        { name: "Sydney", timezone: "Australia/Sydney", flagCode: "au" },
+        { name: "Tel Aviv", timezone: "Asia/Jerusalem", flagCode: "il" },
+        { name: "Tokyo", timezone: "Asia/Tokyo", flagCode: "jp" },
+        { name: "Ushuaia", timezone: "America/Argentina/Ushuaia", flagCode: "ar" },
+        { name: "Varsóvia", timezone: "Europe/Warsaw", flagCode: "pl" },
+        { name: "Washington, D.C.", timezone: "America/New_York", flagCode: "us" }
       ];
+
+      // Ordenar cidades alfabeticamente
+      cities.sort((a, b) => a.name.localeCompare(b.name));
+
       const container = document.getElementById("worldClockSection");
       container.innerHTML = "";
 
@@ -485,13 +1659,20 @@
         div.innerHTML = `
           <div class="time">${now}</div>
           <div class="city-flag">
-            <img src="${city.flag}" alt="${city.name}" class="flag-img">
-            ${city.name}
+            <img src="https://flagcdn.com/w40/${city.flagCode}.png"
+                 alt="Flag of ${city.name}"
+                 class="flag-img"
+                 width="32"
+                 height="24"
+                 loading="lazy"
+                 onerror="this.onerror=null;this.src='flags/${city.flagCode}.png'">
+            <span class="city-name">${city.name}</span>
           </div>
         `;
         container.appendChild(div);
       });
     }
+
     // ===== CRONÔMETRO =====
     let stopwatchInterval;
     let stopwatchTime = 0;
@@ -623,26 +1804,46 @@
     let alarmTimeout;
     const alarmSound = document.getElementById('alarmSound');
     const alarmNotification = document.getElementById('alarmNotification');
+    const alarmHour = document.getElementById('alarmHour');
+    const alarmMinute = document.getElementById('alarmMinute');
+    const alarmTimeDisplay = document.getElementById('alarmTimeDisplay');
 
-    document.getElementById('alarmTimeDisplay').addEventListener('input', function(e) {
-      let value = this.value.replace(/\D/g, '');
-      if (value.length > 2) {
-        value = value.substring(0, 2) + ':' + value.substring(2, 4);
+    function updateAlarmDisplay() {
+      const alarmTime = alarmTimeDisplay.value;
+      if (alarmTime && alarmTime.length === 5) {
+        const [hours, minutes] = alarmTime.split(':');
+        alarmHour.textContent = hours;
+        alarmMinute.textContent = minutes;
       }
-      this.value = value;
-    });
+    }
 
-    document.getElementById('alarmTimeDisplay').addEventListener('blur', function() {
-      if (this.value.length === 1) {
-        this.value = '0' + this.value;
-      }
-      if (this.value.length === 2 && !this.value.includes(':')) {
-        this.value = this.value + ':';
-      }
-    });
+    function handleAlarmDigitClick(element, isHour) {
+      element.addEventListener('click', () => {
+        const currentValue = parseInt(element.textContent) || 0;
+        let newValue = currentValue + 1;
+        
+        if (isHour) {
+          if (newValue > 23) newValue = 0;
+        } else {
+          if (newValue > 59) newValue = 0;
+        }
+        
+        element.textContent = newValue.toString().padStart(2, '0');
+        updateAlarmTimeInput();
+      });
+    }
+
+    function updateAlarmTimeInput() {
+      const hours = alarmHour.textContent;
+      const minutes = alarmMinute.textContent;
+      alarmTimeDisplay.value = `${hours}:${minutes}`;
+    }
+
+    handleAlarmDigitClick(alarmHour, true);
+    handleAlarmDigitClick(alarmMinute, false);
 
     document.getElementById('setAlarm').addEventListener('click', () => {
-      const alarmTimeInput = document.getElementById('alarmTimeDisplay').value;
+      const alarmTimeInput = alarmTimeDisplay.value;
       
       if (!alarmTimeInput || !alarmTimeInput.includes(':')) {
         alert("Invalid format. Use HH:MM (ex: 07:30)");
@@ -694,6 +1895,162 @@
       this.style.display = 'none';
     };
 
+    // ===== MENU DROPDOWN =====
+    const menuIcon = document.querySelector('.menu-icon');
+    const menuDropdown = document.getElementById('menuDropdown');
+    const accountPopup = document.getElementById('accountPopup');
+    const accountPopupClose = document.getElementById('accountPopupClose');
+    const codestorePopup = document.getElementById('codestorePopup');
+    const codestorePopupClose = document.getElementById('codestorePopupClose');
+    const termsPopup = document.getElementById('termsPopup');
+    const termsPopupClose = document.getElementById('termsPopupClose');
+    const termsLink = document.getElementById('termsLink');
+    const howToUsePopup = document.getElementById('howToUsePopup');
+    const howToUsePopupClose = document.getElementById('howToUsePopupClose');
+    const howToUseLink = document.getElementById('howToUse');
+
+    menuIcon.addEventListener('click', () => {
+      menuDropdown.style.display = menuDropdown.style.display === 'flex' ? 'none' : 'flex';
+    });
+
+    document.getElementById('myAccount').addEventListener('click', (e) => {
+      e.preventDefault();
+      accountPopup.style.display = 'block';
+      menuDropdown.style.display = 'none';
+    });
+
+    document.getElementById('codestore').addEventListener('click', (e) => {
+      e.preventDefault();
+      codestorePopup.style.display = 'block';
+      menuDropdown.style.display = 'none';
+    });
+
+    howToUseLink.addEventListener('click', (e) => {
+      e.preventDefault();
+      howToUsePopup.style.display = 'block';
+      menuDropdown.style.display = 'none';
+    });
+
+    accountPopupClose.addEventListener('click', () => {
+      accountPopup.style.display = 'none';
+    });
+
+    codestorePopupClose.addEventListener('click', () => {
+      codestorePopup.style.display = 'none';
+    });
+
+    howToUsePopupClose.addEventListener('click', () => {
+      howToUsePopup.style.display = 'none';
+    });
+
+    termsLink.addEventListener('click', (e) => {
+      e.preventDefault();
+      termsPopup.style.display = 'block';
+    });
+
+    termsPopupClose.addEventListener('click', () => {
+      termsPopup.style.display = 'none';
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!menuIcon.contains(e.target) && !menuDropdown.contains(e.target)) {
+        menuDropdown.style.display = 'none';
+      }
+      
+      if (!accountPopup.contains(e.target) && e.target !== document.getElementById('myAccount')) {
+        accountPopup.style.display = 'none';
+      }
+      
+      if (!codestorePopup.contains(e.target) && e.target !== document.getElementById('codestore')) {
+        codestorePopup.style.display = 'none';
+      }
+      
+      if (!termsPopup.contains(e.target) && e.target !== termsLink) {
+        termsPopup.style.display = 'none';
+      }
+      
+      if (!howToUsePopup.contains(e.target) && e.target !== howToUseLink) {
+        howToUsePopup.style.display = 'none';
+      }
+    });
+
+    // ===== DARK MODE TOGGLE =====
+    const darkModeToggle = document.getElementById('darkModeToggle');
+    const body = document.body;
+
+    darkModeToggle.addEventListener('click', () => {
+      body.classList.toggle('dark-mode');
+      localStorage.setItem('darkMode', body.classList.contains('dark-mode'));
+      darkModeToggle.textContent = body.classList.contains('dark-mode') ? 'LIGHT MODE' : 'DARK MODE';
+    });
+
+    // ===== FOCUS MODE TOGGLE =====
+    const focusModeToggle = document.getElementById('focusModeToggle');
+
+    function toggleFocusMode() {
+      body.classList.toggle('focus-mode');
+      localStorage.setItem('focusMode', body.classList.contains('focus-mode'));
+      focusModeToggle.textContent = body.classList.contains('focus-mode') ? 'NORMAL MODE' : 'FOCUS MODE';
+    }
+
+    focusModeToggle.addEventListener('click', toggleFocusMode);
+
+    // Exit focus mode with ESC key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && body.classList.contains('focus-mode')) {
+        toggleFocusMode();
+      }
+    });
+
+    // Exit focus mode with click/tap
+    document.addEventListener('click', (e) => {
+      if (body.classList.contains('focus-mode') && e.target === body) {
+        toggleFocusMode();
+      }
+    });
+
+    // Verificar preferência de modo escuro ao carregar
+    if (localStorage.getItem('darkMode') === 'true') {
+      body.classList.add('dark-mode');
+      darkModeToggle.textContent = 'LIGHT MODE';
+    }
+
+    // Verificar preferência de modo foco ao carregar
+    if (localStorage.getItem('focusMode') === 'true') {
+      body.classList.add('focus-mode');
+      focusModeToggle.textContent = 'NORMAL MODE';
+    }
+
+    // ===== GOOGLE SIGN-IN =====
+    function handleCredentialResponse(response) {
+      // Process the Google Sign-In response
+      console.log("Google Sign-In response:", response);
+      // You would typically verify the ID token on your server here
+    }
+
+    document.getElementById('googleSignIn').addEventListener('click', () => {
+      // Initialize Google Sign-In
+      google.accounts.id.initialize({
+        client_id: 'YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com',
+        callback: handleCredentialResponse
+      });
+      
+      // Prompt the user to select a Google account
+      google.accounts.id.prompt();
+    });
+
+    // Auto login with Google on page load
+    window.onload = function() {
+      google.accounts.id.initialize({
+        client_id: 'YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com',
+        callback: handleCredentialResponse,
+        auto_select: true
+      });
+      
+      // Try to automatically sign in the user
+      google.accounts.id.prompt();
+    };
+
     // ===== PWA =====
     let deferredPrompt;
     const installContainer = document.getElementById('installContainer');
@@ -717,11 +2074,12 @@
       installContainer.style.display = 'none';
     });
 
+    // Registro do Service Worker (Atualizado conforme seu primeiro código)
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
         navigator.serviceWorker.register('/sw.js')
-          .then(registration => console.log('Service Worker registrado com sucesso'))
-          .catch(err => console.log('Falha no registro: ', err));
+          .then(reg => console.log('SW registrado:', reg))
+          .catch(err => console.log('Erro no SW:', err));
       });
     }
 
@@ -787,6 +2145,7 @@
     updateWorldClocks();
     updateTimerDisplay();
     loadStopwatchState();
+    updateAlarmDisplay();
 
     // ===== CONTADOR GERAL =====
     function updateCountdown(elementId, targetDate) {
@@ -818,5 +2177,7 @@
       clearInterval(countdownInterval);
     });
   </script>
+  <!-- Google API para login -->
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
 </body>
 </html>
