@@ -3,19 +3,53 @@
   "short_name": "ClockView",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#f7f7f7",
-  "theme_color": "#007B7B",
-  "description": "Relógio online com cronômetro, temporizador e alarme",
+  "background_color": "#11354c",
+  "theme_color": "#5ac7f5",
+  "description": "Accurate world clocks, alarms, timers in 20+ languages. Free online tools for time management with countdowns and timezone converter",
+  "lang": "pt-BR",
+  "dir": "ltr",
+  "categories": ["utilities", "productivity"],
+  "orientation": "portrait-primary",
   "icons": [
+    {
+      "src": "icon-144.png",
+      "type": "image/png",
+      "sizes": "144x144"
+    },
     {
       "src": "icon-192.png",
       "type": "image/png",
-      "sizes": "192x192"
+      "sizes": "192x192",
+      "purpose": "any maskable"
     },
     {
       "src": "icon-512.png",
       "type": "image/png",
-      "sizes": "512x512"
+      "sizes": "512x512",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "screenshot1.png",
+      "type": "image/png",
+      "sizes": "1280x720",
+      "form_factor": "wide",
+      "label": "ClockView - Main Interface"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "World Clocks",
+      "short_name": "Clocks",
+      "url": "/#worldClockSection",
+      "icons": [{ "src": "icon-clock.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "Set Alarm",
+      "short_name": "Alarm",
+      "url": "/#setAlarm",
+      "icons": [{ "src": "icon-alarm.png", "sizes": "96x96" }]
     }
   ]
 }
