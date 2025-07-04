@@ -1,14 +1,19 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="en">
 
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Accurate world clocks, alarms, timers in 20+ languages. Free online tools for time management with countdowns and timezone converter">
   <meta name="keywords" content="world clock, online alarm, countdown timer, timezone converter, stopwatch, time management">
+  <meta name="author" content="ClockView Team">
+  <meta name="robots" content="index, follow">
   <!-- Open Graph -->
   <meta property="og:title" content="ClockView - Your Global Time Manager">
   <meta property="og:description" content="Real-time clocks for 100+ cities with alarms and timers">
+  <meta property="og:image" content="https://clockview.online/logo-social.jpg">
+  <meta property="og:url" content="https://clockview.online">
+  <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="/favicon.png" type="image/png" />
   <!-- PWA Config -->
   <link rel="manifest" href="/manifest.json">
@@ -16,6 +21,23 @@
   <title>ClockView - World Time Manager</title>
   <!-- Font Awesome para ícones sociais -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <!-- Schema Markup -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "ClockView",
+    "description": "Accurate world clocks, alarms, timers in 20+ languages",
+    "url": "https://clockview.online",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "Web Browser",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    }
+  }
+  </script>
   <style>
     :root {
       --primary-color: #11354c;
@@ -30,7 +52,8 @@
       --icon-box-border: #11354c;
       --icon-fill: #11354c;
       --ad-bg: #f7f7f7;
-      font-size: 16px; /* Base para rem */
+      --primary-color-rgb: 17, 53, 76;
+      font-size: 16px;
     }
 
     .dark-mode {
@@ -72,6 +95,20 @@
       transition: background-color 0.3s, color 0.3s;
     }
 
+    .ad-top-container {
+      position: relative;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    .ad-top-divider {
+      width: 100%;
+      height: 1px;
+      background: transparent;
+      margin: 0;
+      padding: 0;
+    }
+
     .top-bar {
       height: 8px;
       width: 100%;
@@ -84,7 +121,7 @@
 
     /* AdSense Containers */
     .ad-slot {
-      margin: 15px auto;
+      margin: 0 auto;
       background: rgba(0,0,0,0.03);
       border-radius: 4px;
       overflow: hidden;
@@ -98,7 +135,7 @@
     .ad-top {
       width: 100%;
       max-width: 728px;
-      height: 90px;
+      height: 50px;
     }
 
     .ad-middle {
@@ -404,63 +441,6 @@
       flex-direction: column;
       align-items: center;
       margin-bottom: 0;
-      transform: scale(1.1);
-    }
-
-    .footer-logo .logo {
-      display: flex;
-      align-items: center;
-      margin-bottom: 5px;
-    }
-
-    .footer-logo .logo-text {
-      display: flex;
-      flex-direction: column;
-      position: relative;
-    }
-
-    .footer-logo .logo-line {
-      font-size: 30.8px;
-      font-weight: 400;
-      color: white;
-    }
-
-    .footer-logo .logo-line span.view {
-      color: #5ac7f5;
-      font-weight: 500;
-    }
-
-    .footer-logo .dot-online {
-      position: absolute;
-      top: 37.4px;
-      left: 66px;
-      font-size: 10px;
-      color: white;
-      letter-spacing: 2px;
-    }
-
-    .footer-logo .icon-box {
-      margin-left: 11px;
-      width: 38.5px;
-      height: 57.2px;
-      border: 1px solid white;
-      border-radius: 6px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .footer-logo .icon-box svg {
-      width: 20px;
-      height: 20px;
-      fill: white;
-    }
-
-    .footer-logo .slogan {
-      font-size: 0.9rem;
-      color: white;
-      margin-top: 5px;
-      text-align: center;
     }
 
     .footer-social {
@@ -477,13 +457,13 @@
 
     .social-icons {
       display: flex;
-      gap: 15px;
+      gap: 10px;
       margin-top: 10px;
     }
 
     .social-icons a {
       color: white;
-      font-size: 1.5rem;
+      font-size: 1.2rem;
       transition: transform 0.3s;
     }
 
@@ -510,7 +490,7 @@
     }
 
     .spinmix-logo .logo-main {
-      font-size: 1.8rem;
+      font-size: 1.5rem;
       font-weight: 800;
     }
 
@@ -541,10 +521,15 @@
       font-size: 0.8rem;
       opacity: 0.9;
       text-align: center;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
     }
 
     .copyright-line {
-      margin: 3px 0;
+      white-space: nowrap;
+      margin: 0;
     }
 
     .terms-link {
@@ -695,24 +680,30 @@
       font-size: 0.9rem;
     }
 
-    /* Menu Icon and Dark Mode Toggle */
+    /* Menu Icon and Dark Mode Toggle - MODIFIED */
+    .header-controls-container {
+      width: 100%;
+      background: var(--bg-color);
+    }
+
     .header-controls {
-      position: fixed;
-      top: 128px;
-      right: 20px;
       display: flex;
+      justify-content: flex-end;
       align-items: center;
       gap: 15px;
-      z-index: 1000;
+      padding: 8px 20px;
+      max-width: 1200px;
+      margin: 0 auto;
     }
 
     .dark-mode-toggle, .focus-mode-toggle {
       color: var(--primary-color);
-      font-size: 1rem;
+      font-size: 0.9rem;
       font-weight: 500;
       cursor: pointer;
       transition: color 0.3s;
       text-transform: uppercase;
+      white-space: nowrap;
     }
 
     .dark-mode .dark-mode-toggle, 
@@ -724,12 +715,18 @@
     .menu-icon {
       cursor: pointer;
       color: var(--primary-color);
-      font-size: 1.8rem;
+      font-size: 1.5rem;
+      background: none;
+      border: none;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .menu-dropdown {
-      position: fixed;
-      top: 160px;
+      position: absolute;
+      top: 100%;
       right: 20px;
       background: white;
       border-radius: 8px;
@@ -833,10 +830,13 @@
     /* Estilos da Nova Logomarca */
     .logo-header {
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 20px;
+      padding: 20px 20px 10px;
       background: var(--bg-color);
+      max-width: 1200px;
+      margin: 0 auto;
     }
 
     .focus-mode .logo-header {
@@ -846,18 +846,22 @@
     .logo {
       display: flex;
       align-items: center;
+      justify-content: center;
+      width: 100%;
     }
 
     .logo-text {
       display: flex;
       flex-direction: column;
       position: relative;
+      text-align: center;
     }
 
     .logo-line {
-      font-size: 48px;
+      font-size: 42px;
       font-weight: 400;
       color: var(--logo-color);
+      line-height: 1;
     }
 
     .logo-line span.view {
@@ -866,32 +870,106 @@
     }
 
     .dot-online {
-      position: absolute;
-      top: 58px;
-      left: 104px;
-      font-size: 14px;
+      font-size: 12px;
       color: var(--logo-online-color);
-      letter-spacing: 4px;
+      letter-spacing: 3px;
+      margin-top: 2px;
+      text-align: right;
+      padding-right: 2px;
     }
 
     .icon-box {
-      margin-left: 20px;
-      width: 60px;
-      height: 90px;
+      width: 55px;
+      height: 82px;
       border: 2px solid var(--icon-box-border);
-      border-radius: 12px;
+      border-radius: 10px;
       display: flex;
       align-items: center;
       justify-content: center;
       position: relative;
+      margin-left: 15px;
     }
 
     .icon-box svg {
-      width: 36px;
-      height: 36px;
+      width: 32px;
+      height: 32px;
       fill: var(--icon-fill);
       animation: swing 1.8s infinite ease-in-out;
       transform-origin: top center;
+    }
+
+    .header-slogan {
+      font-size: 0.9rem;
+      color: var(--text-color);
+      margin-top: 5px;
+      font-style: italic;
+      text-align: center;
+      width: 100%;
+    }
+
+    /* Footer Logo - identical to main logo */
+    .footer-logo .logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 5px;
+    }
+
+    .footer-logo .logo-text {
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      text-align: center;
+    }
+
+    .footer-logo .logo-line {
+      font-size: 42px;
+      font-weight: 400;
+      color: white;
+      line-height: 1;
+    }
+
+    .footer-logo .logo-line span.view {
+      color: var(--secondary-color);
+      font-weight: 500;
+    }
+
+    .footer-logo .dot-online {
+      font-size: 12px;
+      color: white;
+      letter-spacing: 3px;
+      margin-top: 2px;
+      text-align: right;
+      padding-right: 2px;
+    }
+
+    .footer-logo .icon-box {
+      width: 55px;
+      height: 82px;
+      border: 2px solid white;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      margin-left: 15px;
+    }
+
+    .footer-logo .icon-box svg {
+      width: 32px;
+      height: 32px;
+      fill: white;
+      animation: swing 1.8s infinite ease-in-out;
+      transform-origin: top center;
+    }
+
+    .footer-logo .header-slogan {
+      font-size: 0.9rem;
+      color: white;
+      margin-top: 5px;
+      font-style: italic;
+      text-align: center;
+      width: 100%;
     }
 
     /* Estilo para os dígitos do alarme */
@@ -1055,74 +1133,68 @@
         width: 90%;
         min-width: unset;
       }
+      
       .clock-container {
         font-size: 3rem;
       }
+      
       .focus-mode .clock-container {
-        font-size: 8rem;
-        min-height: 40vh;
+        font-size: clamp(6rem, 15vw, 10rem);
+        min-height: 60vh;
+        padding: 20px;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
       }
+      
+      .focus-mode .date-container {
+        font-size: 1.8rem;
+        margin-top: 20px;
+      }
+      
       #installContainer {
         bottom: 10px;
         right: 10px;
       }
+      
       .share-btn {
         bottom: 70px;
         left: 10px;
       }
+      
       .share-options {
         bottom: 130px;
         left: 10px;
       }
-      .header-controls {
-        top: 108px;
-      }
-      .menu-dropdown {
-        top: 140px;
-      }
-      .logo-line {
+      
+      .logo-line, .footer-logo .logo-line {
         font-size: 36px;
       }
-      .dot-online {
-        top: 44px;
-        left: 78px;
+      
+      .dot-online, .footer-logo .dot-online {
         font-size: 12px;
       }
-      .icon-box {
+      
+      .icon-box, .footer-logo .icon-box {
         width: 50px;
         height: 75px;
+        margin-left: 10px;
       }
+      
       .world-time {
         width: calc(50% - 20px);
       }
+      
       .footer-columns {
         flex-direction: column;
         gap: 20px;
       }
+      
       .footer-logo, 
       .footer-social, 
       .footer-partner {
         width: 100%;
-      }
-      .footer-logo .logo-line {
-        font-size: 24px;
-      }
-      .footer-logo .dot-online {
-        top: 30px;
-        left: 52px;
-      }
-      .footer-logo .icon-box {
-        width: 30px;
-        height: 45px;
-      }
-      .spinmix-logo .logo-main {
-        font-size: 1.5rem;
-      }
-      .social-icons {
-        gap: 10px;
-      }
-      .social-icons a {
-        font-size: 1.2rem;
       }
       
       .alarm-digit-box {
@@ -1135,6 +1207,35 @@
       .codestore-popup,
       .how-to-use-popup {
         width: 90%;
+      }
+      
+      .header-controls {
+        padding: 6px 12px;
+      }
+      
+      .menu-dropdown {
+        right: 10px;
+      }
+
+      .logo-header {
+        padding: 10px 15px;
+      }
+
+      .logo, .footer-logo .logo {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .icon-box, .footer-logo .icon-box {
+        margin-left: 0;
+        margin-top: 10px;
+      }
+    }
+
+    @media (orientation: landscape) {
+      .focus-mode .clock-container {
+        font-size: clamp(8rem, 15vw, 12rem);
+        min-height: 70vh;
       }
     }
 
@@ -1152,6 +1253,27 @@
         width: 100%;
         margin-bottom: 8px;
       }
+      
+      .logo-line, .footer-logo .logo-line {
+        font-size: 32px;
+      }
+      
+      .dot-online, .footer-logo .dot-online {
+        font-size: 10px;
+        letter-spacing: 2px;
+      }
+      
+      .header-controls {
+        padding: 5px 10px;
+      }
+
+      .dark-mode-toggle, .focus-mode-toggle {
+        font-size: 0.8rem;
+      }
+
+      .menu-icon {
+        font-size: 1.3rem;
+      }
     }
   </style>
 </head>
@@ -1159,31 +1281,36 @@
 <body>
   <div class="top-bar"></div>
   
-  <div class="ad-slot ad-top">
-    <!-- AdSense Leaderboard (728x90) -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_PUBLISHER_ID"
-     crossorigin="anonymous"></script>
-    <ins class="adsbygoogle"
-         style="display:inline-block;width:728px;height:90px"
-         data-ad-client="ca-pub-YOUR_PUBLISHER_ID"
-         data-ad-slot="YOUR_LEADERBOARD_SLOT"></ins>
-    <script>
-         (adsbygoogle = window.adsbygoogle || []).push({});
-    </script>
+  <div class="ad-top-container">
+    <div class="ad-slot ad-top">
+      <!-- AdSense Leaderboard (728x90) -->
+      <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_PUBLISHER_ID"
+       crossorigin="anonymous"></script>
+      <ins class="adsbygoogle"
+           style="display:inline-block;width:728px;height:90px"
+           data-ad-client="ca-pub-YOUR_PUBLISHER_ID"
+           data-ad-slot="YOUR_LEADERBOARD_SLOT"></ins>
+      <script>
+           (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+    </div>
   </div>
 
-  <div class="header-controls">
-    <div class="focus-mode-toggle" id="focusModeToggle">FOCUS MODE</div>
-    <div class="dark-mode-toggle" id="darkModeToggle">DARK MODE</div>
-    <div class="menu-icon">☰</div>
-  </div>
-  <div class="menu-dropdown" id="menuDropdown">
-    <a href="#" id="myAccount">My Account</a>
-    <a href="#" id="howToUse">How to Use</a>
-    <a href="#" id="settings">Settings</a>
-    <a href="#" id="blog">Blog</a>
-    <a href="#" id="codestore">CODESTORE</a>
-    <a href="#" id="googleSignIn">Sign in with Google</a>
+  <!-- Controles reposicionados abaixo da segunda faixa -->
+  <div class="header-controls-container">
+    <div class="header-controls">
+      <div class="focus-mode-toggle" id="focusModeToggle">FOCUS MODE</div>
+      <div class="dark-mode-toggle" id="darkModeToggle">DARK MODE</div>
+      <button class="menu-icon">☰</button>
+    </div>
+    <div class="menu-dropdown" id="menuDropdown">
+      <a href="#" id="myAccount">My Account</a>
+      <a href="#" id="howToUse">How to Use</a>
+      <a href="#" id="settings">Settings</a>
+      <a href="#" id="blog">Blog</a>
+      <a href="#" id="codestore">CODESTORE</a>
+      <a href="#" id="googleSignIn">Sign in with Google</a>
+    </div>
   </div>
 
   <!-- Popup da conta -->
@@ -1314,6 +1441,7 @@
           Clock<span class="view">View</span>
         </div>
         <div class="dot-online">. o n l i n e</div>
+        <div class="header-slogan">The right time, on your time</div>
       </div>
       <div class="icon-box">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -1501,7 +1629,7 @@
               </svg>
             </div>
           </div>
-          <div class="slogan">The right time, on your time</div>
+          <div class="header-slogan">The right time, on your time</div>
         </div>
         
         <!-- Coluna 2 - Redes Sociais -->
@@ -1567,6 +1695,41 @@
 
   <!-- Main Application Script -->
   <script>
+    // ===== VIEW COUNTER SYSTEM =====
+    const viewCounter = {
+      init() {
+        this.views = parseInt(localStorage.getItem('viewCount')) || 0;
+        this.startTime = Date.now();
+        this.updateCounter();
+        setInterval(() => this.updateCounter(), 60000); // Atualizar a cada minuto
+      },
+      updateCounter() {
+        this.views++;
+        localStorage.setItem('viewCount', this.views);
+        const timeSpent = Math.floor((Date.now() - this.startTime) / 1000);
+        localStorage.setItem('timeSpent', timeSpent);
+        
+        // Atualizar popup de conta
+        if(document.getElementById('accountPopup').style.display === 'block') {
+          this.displayStats();
+        }
+      },
+      displayStats() {
+        const timeSpent = parseInt(localStorage.getItem('timeSpent')) || 0;
+        const days = Math.floor(timeSpent / 86400);
+        const hours = Math.floor((timeSpent % 86400) / 3600);
+        const mins = Math.floor((timeSpent % 3600) / 60);
+        const secs = timeSpent % 60;
+        
+        document.querySelectorAll('.account-row .value')[0].textContent = 
+          new Date().toLocaleDateString();
+        document.querySelectorAll('.account-row .value')[1].textContent = 
+          localStorage.getItem('viewCount') || '0';
+        document.querySelectorAll('.account-row .value')[2].textContent = 
+          `${days}d ${hours}h ${mins}m ${secs}s`;
+      }
+    };
+
     // ===== RELÓGIO PRINCIPAL =====
     function updateLocalClock() {
       const now = new Date();
@@ -1917,6 +2080,7 @@
       e.preventDefault();
       accountPopup.style.display = 'block';
       menuDropdown.style.display = 'none';
+      viewCounter.displayStats();
     });
 
     document.getElementById('codestore').addEventListener('click', (e) => {
@@ -2074,7 +2238,7 @@
       installContainer.style.display = 'none';
     });
 
-    // Registro do Service Worker (Atualizado conforme seu primeiro código)
+    // Registro do Service Worker
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
         navigator.serviceWorker.register('/sw.js')
@@ -2146,6 +2310,7 @@
     updateTimerDisplay();
     loadStopwatchState();
     updateAlarmDisplay();
+    viewCounter.init();
 
     // ===== CONTADOR GERAL =====
     function updateCountdown(elementId, targetDate) {
