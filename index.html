@@ -42,23 +42,6 @@
     :root {
       --primary-color: #11354c;
       --secondary-color: #5ac7f5;
-      --text-color: #11354c;
-      --bg-color: #f7f7f7;
-      --feature-bg: #fff;
-      --feature-border: #ddd;
-      --logo-color: #11354c;
-      --logo-view-color: #5ac7f5;
-      --logo-online-color: #11354c;
-      --icon-box-border: #11354c;
-      --icon-fill: #11354c;
-      --ad-bg: #f7f7f7;
-      --primary-color-rgb: 17, 53, 76;
-      font-size: 16px;
-    }
-
-    .dark-mode {
-      --primary-color: #11354c;
-      --secondary-color: #5ac7f5;
       --text-color: #ffffff;
       --bg-color: #0a1e2c;
       --feature-bg: #11354c;
@@ -69,6 +52,23 @@
       --icon-box-border: #ffffff;
       --icon-fill: #ffffff;
       --ad-bg: #0a1e2c;
+      --primary-color-rgb: 17, 53, 76;
+      font-size: 16px;
+    }
+
+    .light-mode {
+      --primary-color: #11354c;
+      --secondary-color: #5ac7f5;
+      --text-color: #11354c;
+      --bg-color: #f7f7f7;
+      --feature-bg: #fff;
+      --feature-border: #ddd;
+      --logo-color: #11354c;
+      --logo-view-color: #5ac7f5;
+      --logo-online-color: #11354c;
+      --icon-box-border: #11354c;
+      --icon-fill: #11354c;
+      --ad-bg: #f7f7f7;
     }
 
     .focus-mode {
@@ -179,12 +179,12 @@
     }
 
     .focus-mode .clock-container {
-      font-size: clamp(8rem, 15vw, 15rem);
-      margin: 20px auto 10px;
+      font-size: clamp(4rem, 10vw, 8rem);
+      margin: 10px auto 5px;
       display: flex;
       justify-content: center;
       align-items: center;
-      min-height: 50vh;
+      min-height: 40vh;
     }
 
     .date-container {
@@ -194,8 +194,9 @@
     }
 
     .focus-mode .date-container {
-      font-size: 1.6rem;
-      margin-bottom: 40px;
+      font-size: 1.4rem;
+      margin-bottom: 20px;
+      margin-top: -10px;
     }
 
     .features {
@@ -554,7 +555,7 @@
       background: var(--feature-bg);
       border-radius: 8px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-      z-index: 2000;
+      z-index: 9999;
       overflow: hidden;
     }
 
@@ -599,7 +600,7 @@
       background: var(--feature-bg);
       border-radius: 8px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-      z-index: 2000;
+      z-index: 9999;
       overflow: hidden;
     }
 
@@ -648,6 +649,23 @@
       font-weight: bold;
     }
 
+    /* Estilos modificados para os popups no modo escuro */
+    body:not(.light-mode) .terms-popup-content,
+    body:not(.light-mode) .terms-popup h3,
+    body:not(.light-mode) .terms-popup-close,
+    body:not(.light-mode) .how-to-use-popup-content,
+    body:not(.light-mode) .how-to-use-popup h3,
+    body:not(.light-mode) .how-to-use-popup h4,
+    body:not(.light-mode) .how-to-use-popup-close,
+    body:not(.light-mode) .account-popup-content,
+    body:not(.light-mode) .account-popup h3,
+    body:not(.light-mode) .account-popup-close,
+    body:not(.light-mode) .codestore-popup-content,
+    body:not(.light-mode) .codestore-popup h3,
+    body:not(.light-mode) .codestore-popup-close {
+      color: white !important;
+    }
+
     .alarm-notification {
       position: fixed;
       top: 20px;
@@ -684,6 +702,7 @@
     .header-controls-container {
       width: 100%;
       background: var(--bg-color);
+      position: relative;
     }
 
     .header-controls {
@@ -697,7 +716,7 @@
     }
 
     .dark-mode-toggle, .focus-mode-toggle {
-      color: var(--primary-color);
+      color: var(--secondary-color);
       font-size: 0.9rem;
       font-weight: 500;
       cursor: pointer;
@@ -706,15 +725,15 @@
       white-space: nowrap;
     }
 
-    .dark-mode .dark-mode-toggle, 
-    .dark-mode .focus-mode-toggle,
-    .dark-mode .menu-icon {
-      color: var(--secondary-color);
+    .light-mode .dark-mode-toggle, 
+    .light-mode .focus-mode-toggle,
+    .light-mode .menu-icon {
+      color: var(--primary-color);
     }
 
     .menu-icon {
       cursor: pointer;
-      color: var(--primary-color);
+      color: var(--secondary-color);
       font-size: 1.5rem;
       background: none;
       border: none;
@@ -740,7 +759,7 @@
       overflow-y: auto;
     }
 
-    .dark-mode .menu-dropdown {
+    .light-mode .menu-dropdown {
       background: #1e1e1e;
     }
 
@@ -750,7 +769,7 @@
       color: #333;
     }
 
-    .dark-mode .menu-dropdown a {
+    .light-mode .menu-dropdown a {
       color: white;
     }
 
@@ -758,7 +777,7 @@
       background-color: #f0f0f0;
     }
 
-    .dark-mode .menu-dropdown a:hover {
+    .light-mode .menu-dropdown a:hover {
       background-color: #333;
     }
 
@@ -801,7 +820,7 @@
       gap: 8px;
     }
 
-    .dark-mode .share-options {
+    .light-mode .share-options {
       background: #1e1e1e;
     }
 
@@ -815,7 +834,7 @@
       color: #333;
     }
 
-    .dark-mode .share-options a {
+    .light-mode .share-options a {
       color: white;
     }
 
@@ -823,7 +842,7 @@
       background-color: #f0f0f0;
     }
 
-    .dark-mode .share-options a:hover {
+    .light-mode .share-options a:hover {
       background-color: #333;
     }
 
@@ -833,32 +852,38 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 20px 20px 10px;
+      padding: 15px 20px 10px;
       background: var(--bg-color);
       max-width: 1200px;
       margin: 0 auto;
     }
 
     .focus-mode .logo-header {
-      padding: 40px 20px 20px;
+      padding: 20px 20px 10px;
     }
 
-    .logo {
+    .logo-main-container {
       display: flex;
-      align-items: center;
       justify-content: center;
-      width: 100%;
+      align-items: flex-start;
+      max-width: 500px;
+      margin: 0 auto;
     }
 
-    .logo-text {
+    .logo-text-container {
       display: flex;
       flex-direction: column;
-      position: relative;
-      text-align: center;
+      align-items: flex-end;
+      padding-right: 20px;
+    }
+
+    .logo-line-box {
+      text-align: right;
+      margin-bottom: 5px;
     }
 
     .logo-line {
-      font-size: 42px;
+      font-size: 36px;
       font-weight: 400;
       color: var(--logo-color);
       line-height: 1;
@@ -869,25 +894,41 @@
       font-weight: 500;
     }
 
+    .dot-online-box {
+      text-align: right;
+      margin-bottom: 5px;
+    }
+
     .dot-online {
-      font-size: 12px;
+      font-size: 11px;
       color: var(--logo-online-color);
       letter-spacing: 3px;
-      margin-top: 2px;
+    }
+
+    .slogan-box {
       text-align: right;
-      padding-right: 2px;
+    }
+
+    .header-slogan {
+      font-size: 0.85rem;
+      color: var(--text-color);
+      font-style: italic;
+    }
+
+    .icon-container {
+      display: flex;
+      align-items: flex-start;
     }
 
     .icon-box {
-      width: 55px;
-      height: 82px;
+      width: 60px;
+      height: 85px;
       border: 2px solid var(--icon-box-border);
       border-radius: 10px;
       display: flex;
       align-items: center;
       justify-content: center;
       position: relative;
-      margin-left: 15px;
     }
 
     .icon-box svg {
@@ -898,32 +939,29 @@
       transform-origin: top center;
     }
 
-    .header-slogan {
-      font-size: 0.9rem;
-      color: var(--text-color);
-      margin-top: 5px;
-      font-style: italic;
-      text-align: center;
-      width: 100%;
+    /* Footer Logo - identical to main logo */
+    .footer-logo .logo-main-container {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      max-width: 350px;
+      margin: 0 auto;
     }
 
-    /* Footer Logo - identical to main logo */
-    .footer-logo .logo {
+    .footer-logo .logo-text-container {
       display: flex;
-      align-items: center;
-      justify-content: center;
+      flex-direction: column;
+      align-items: flex-end;
+      padding-right: 15px;
+    }
+
+    .footer-logo .logo-line-box {
+      text-align: right;
       margin-bottom: 5px;
     }
 
-    .footer-logo .logo-text {
-      display: flex;
-      flex-direction: column;
-      position: relative;
-      text-align: center;
-    }
-
     .footer-logo .logo-line {
-      font-size: 42px;
+      font-size: 32px;
       font-weight: 400;
       color: white;
       line-height: 1;
@@ -934,42 +972,54 @@
       font-weight: 500;
     }
 
-    .footer-logo .dot-online {
-      font-size: 12px;
-      color: white;
-      letter-spacing: 3px;
-      margin-top: 2px;
+    .footer-logo .dot-online-box {
       text-align: right;
-      padding-right: 2px;
+      margin-bottom: 5px;
+    }
+
+    .footer-logo .dot-online {
+      font-size: 10px;
+      color: white;
+      letter-spacing: 2px;
+    }
+
+    .footer-logo .slogan-box {
+      text-align: right;
+      margin-top: -20px;
+      margin-right: 50px;
+      width: auto;
+    }
+
+    .footer-logo .header-slogan {
+      font-size: 0.75rem;
+      color: white;
+      font-style: italic;
+      display: inline-block;
+      transform: translateX(-10px);
+    }
+
+    .footer-logo .icon-container {
+      display: flex;
+      align-items: flex-start;
     }
 
     .footer-logo .icon-box {
-      width: 55px;
-      height: 82px;
+      width: 45px;
+      height: 70px;
       border: 2px solid white;
       border-radius: 10px;
       display: flex;
       align-items: center;
       justify-content: center;
       position: relative;
-      margin-left: 15px;
     }
 
     .footer-logo .icon-box svg {
-      width: 32px;
-      height: 32px;
+      width: 26px;
+      height: 26px;
       fill: white;
       animation: swing 1.8s infinite ease-in-out;
       transform-origin: top center;
-    }
-
-    .footer-logo .header-slogan {
-      font-size: 0.9rem;
-      color: white;
-      margin-top: 5px;
-      font-style: italic;
-      text-align: center;
-      width: 100%;
     }
 
     /* Estilo para os dígitos do alarme */
@@ -1014,11 +1064,11 @@
       background: var(--feature-bg);
       border-radius: 8px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-      z-index: 2000;
+      z-index: 9999;
       overflow: hidden;
     }
 
-    .dark-mode .account-popup {
+    .light-mode .account-popup {
       background: var(--feature-bg);
     }
 
@@ -1083,7 +1133,7 @@
       background: var(--feature-bg);
       border-radius: 8px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-      z-index: 2000;
+      z-index: 9999;
       overflow: hidden;
     }
 
@@ -1139,8 +1189,8 @@
       }
       
       .focus-mode .clock-container {
-        font-size: clamp(6rem, 15vw, 10rem);
-        min-height: 60vh;
+        font-size: clamp(4rem, 10vw, 6rem);
+        min-height: 50vh;
         padding: 20px;
         text-align: center;
         display: flex;
@@ -1149,8 +1199,8 @@
       }
       
       .focus-mode .date-container {
-        font-size: 1.8rem;
-        margin-top: 20px;
+        font-size: 1.4rem;
+        margin-top: 10px;
       }
       
       #installContainer {
@@ -1169,17 +1219,16 @@
       }
       
       .logo-line, .footer-logo .logo-line {
-        font-size: 36px;
+        font-size: 32px;
       }
       
       .dot-online, .footer-logo .dot-online {
-        font-size: 12px;
+        font-size: 10px;
       }
       
       .icon-box, .footer-logo .icon-box {
-        width: 50px;
-        height: 75px;
-        margin-left: 10px;
+        width: 45px;
+        height: 70px;
       }
       
       .world-time {
@@ -1195,6 +1244,17 @@
       .footer-social, 
       .footer-partner {
         width: 100%;
+      }
+      
+      .footer-logo .slogan-box {
+        margin-top: -8px;
+        margin-right: 0;
+        text-align: center;
+        width: 100%;
+      }
+      
+      .footer-logo .header-slogan {
+        transform: none;
       }
       
       .alarm-digit-box {
@@ -1221,21 +1281,51 @@
         padding: 10px 15px;
       }
 
-      .logo, .footer-logo .logo {
+      .logo-main-container {
         flex-direction: column;
         align-items: center;
       }
 
-      .icon-box, .footer-logo .icon-box {
-        margin-left: 0;
+      .logo-text-container {
+        align-items: center;
+        padding-right: 0;
+      }
+
+      .logo-line-box, .dot-online-box, .slogan-box {
+        text-align: center;
+      }
+
+      .icon-container {
+        justify-content: center;
+        margin-top: 10px;
+      }
+
+      .footer-logo .logo-main-container {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .footer-logo .logo-text-container {
+        align-items: center;
+        padding-right: 0;
+      }
+
+      .footer-logo .logo-line-box, 
+      .footer-logo .dot-online-box, 
+      .footer-logo .slogan-box {
+        text-align: center;
+      }
+
+      .footer-logo .icon-container {
+        justify-content: center;
         margin-top: 10px;
       }
     }
 
     @media (orientation: landscape) {
       .focus-mode .clock-container {
-        font-size: clamp(8rem, 15vw, 12rem);
-        min-height: 70vh;
+        font-size: clamp(6rem, 10vw, 8rem);
+        min-height: 60vh;
       }
     }
 
@@ -1255,12 +1345,12 @@
       }
       
       .logo-line, .footer-logo .logo-line {
-        font-size: 32px;
+        font-size: 28px;
       }
       
       .dot-online, .footer-logo .dot-online {
-        font-size: 10px;
-        letter-spacing: 2px;
+        font-size: 9px;
+        letter-spacing: 1px;
       }
       
       .header-controls {
@@ -1300,7 +1390,7 @@
   <div class="header-controls-container">
     <div class="header-controls">
       <div class="focus-mode-toggle" id="focusModeToggle">FOCUS MODE</div>
-      <div class="dark-mode-toggle" id="darkModeToggle">DARK MODE</div>
+      <div class="dark-mode-toggle" id="darkModeToggle">LIGHT MODE</div>
       <button class="menu-icon">☰</button>
     </div>
     <div class="menu-dropdown" id="menuDropdown">
@@ -1344,14 +1434,115 @@
     </div>
   </div>
 
-  <!-- Popup Terms -->
+<!-- Popup Terms -->
   <div class="terms-popup" id="termsPopup">
     <div class="terms-popup-top"></div>
     <div class="terms-popup-content">
       <span class="terms-popup-close" id="termsPopupClose">&times;</span>
-      <h3>Terms of Use and Privacy</h3>
+      <h3>Terms and Conditions and Privacy Policy</h3>
       <div id="termsContent">
-        <!-- Content will be added here when available -->
+        <p><em>Last Updated: July 2025</em></p>
+        <p>The following terms, hereinafter referred to as the "Terms and Conditions and Privacy Policy" of this website (hereinafter referred to as the "Site"), constitute a legally binding agreement between you (hereinafter referred to as the "User," "you," "your") and SPDTECH Digital Asset Management (hereinafter referred to as "SPDTECH").</p>
+
+        <h4>TERMS AND CONDITIONS FOR USING THIS SITE</h4>
+        <ol>
+          <li>The content of this Site may be shared, redistributed, embedded, and copied, provided that a link back to the Site is included.</li>
+          <li>The content of this Site may not be modified or sold without SPDTECH's express written permission.</li>
+          <li>SPDTECH is not responsible for the content of third-party websites mentioned or advertised on this Site.</li>
+          <li>SPDTECH is not liable for any adverse effects resulting from the use of this Site.</li>
+          <li>SPDTECH is not responsible for the content of websites that link to this Site or that use its content.</li>
+          <li>By using this Site, you agree to these Terms and Conditions and Privacy Policy.</li>
+          <li>SPDTECH does not guarantee that this Site will always be free from errors, interruptions, omissions, or defects, nor does it guarantee that such issues will be corrected. You bear all costs arising from the use of the Site.</li>
+          <li>Under no circumstances shall SPDTECH, its affiliates, directors, employees, licensors, suppliers, or distributors be liable for any direct, indirect, special, incidental, economic, or consequential damages resulting from the use of this Site, even if SPDTECH has been advised of such possibility. Furthermore, SPDTECH's liability shall never exceed the amount paid by you (if applicable) for products or services.</li>
+          <li>SPDTECH reserves the right to modify these Terms and Conditions and Privacy Policy at any time, without prior notice. Changes take effect immediately upon publication.</li>
+        </ol>
+
+        <h4>PRIVACY POLICY</h4>
+        <p>This Site is operated by SPDTECH Digital Asset Management (hereinafter referred to as "SPDTECH"). Your online privacy is of utmost importance to us. We strive to ensure your experience is safe and satisfying.</p>
+        <p>Since we collect certain types of user information, it is important that you understand how this data is used. This policy outlines the information we gather and its purpose.</p>
+
+        <h5>INFORMATION COLLECTED BY SPDTECH</h5>
+        <p>SPDTECH collects two types of data:</p>
+        <ol>
+          <li>Voluntarily provided information – Includes newsletter subscriptions, forum participation, "send to a friend" requests, and survey responses.</li>
+          <li>Aggregated usage data – We collect browsing statistics (e.g., pages visited) to improve our content. This data does not identify individual users and is essential for maintaining free services.</li>
+        </ol>
+
+        <h5>HOW INFORMATION IS COLLECTED</h5>
+        <p><strong>Voluntary Information</strong></p>
+        <p>We offer the following free services, which require data sharing:</p>
+        
+        <p><strong>1. Newsletters</strong></p>
+        <ul>
+          <li>Users may subscribe by providing their email.</li>
+          <li>Subscriptions can be canceled anytime.</li>
+        </ul>
+        
+        <p><strong>2. Forums</strong></p>
+        <ul>
+          <li>Registration (free) is required to post but not to browse.</li>
+          <li>Registration requires a username, password, and email.</li>
+        </ul>
+        
+        <p><strong>3. "Send to a Friend"</strong></p>
+        <ul>
+          <li>Users provide their email and the recipient's.</li>
+          <li>Data is only used to ensure delivery and prevent errors.</li>
+        </ul>
+        
+        <p><strong>4. Polls</strong></p>
+        <ul>
+          <li>Responses are anonymous and aggregated.</li>
+          <li>A system prevents duplicate votes without tracking user identity.</li>
+        </ul>
+        
+        <p><strong>5. Surveys</strong></p>
+        <ul>
+          <li>Aggregated demographic data may be shared with partners, but never individual responses.</li>
+        </ul>
+
+        <h5>Children's Privacy</h5>
+        <p>In compliance with COPPA (U.S. Children's Online Privacy Protection Act, 1998), we do not knowingly collect data from children under 13 without parental consent.</p>
+
+        <h5>Usage Tracking</h5>
+        <ul>
+          <li>We monitor access patterns but do not identify individual users.</li>
+          <li>Search terms and page performance are analyzed to improve the Site.</li>
+        </ul>
+
+        <h5>Cookies</h5>
+        <ul>
+          <li>A cookie (text file) may be stored on your device to enhance navigation.</li>
+          <li>Cookies do not collect personal data unless you provide it.</li>
+          <li>You may disable cookies in your browser, though some features (e.g., forums) may not function.</li>
+        </ul>
+
+        <h5>USE OF INFORMATION</h5>
+        <p>Data is used to:</p>
+        <ul>
+          <li>Personalize content and improve user experience.</li>
+          <li>Send newsletters and enable interaction in forums/polls.</li>
+          <li>We never share email lists with third parties.</li>
+        </ul>
+
+        <h5>DATA SHARING</h5>
+        <ul>
+          <li>Aggregated data helps tailor content and ads.</li>
+          <li>Individual user data is not disclosed, except as required by law.</li>
+        </ul>
+
+        <h5>SECURITY</h5>
+        <p>We use firewalls and encryption to protect your data. Only authorized personnel have access.</p>
+
+        <h5>OPT-OUT OPTIONS</h5>
+        <p>You may:</p>
+        <ul>
+          <li>Unsubscribe from newsletters.</li>
+          <li>Avoid interactive features requiring personal data.</li>
+        </ul>
+
+        <h5>YOUR CONSENT</h5>
+        <p>By using this Site, you consent to this policy. Updates will be posted here for transparency.</p>
       </div>
     </div>
   </div>
@@ -1435,18 +1626,26 @@
   </div>
 
   <header class="logo-header">
-    <div class="logo">
-      <div class="logo-text">
-        <div class="logo-line">
-          Clock<span class="view">View</span>
+    <div class="logo-main-container">
+      <div class="logo-text-container">
+        <div class="logo-line-box">
+          <div class="logo-line">
+            Clock<span class="view">View</span>
+          </div>
         </div>
-        <div class="dot-online">. o n l i n e</div>
-        <div class="header-slogan">The right time, on your time</div>
+        <div class="dot-online-box">
+          <div class="dot-online">. o n l i n e</div>
+        </div>
+        <div class="slogan-box">
+          <div class="header-slogan">The right time, on your time</div>
+        </div>
       </div>
-      <div class="icon-box">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-          <path d="M12 2a1 1 0 011 1v1.07c3.39.49 6 3.39 6 6.93v4l1 2v1H4v-1l1-2v-4c0-3.54 2.61-6.44 6-6.93V3a1 1 0 011-1zm0 20a2.5 2.5 0 002.45-2h-4.9A2.5 2.5 0 0012 22z"/>
-        </svg>
+      <div class="icon-container">
+        <div class="icon-box">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M12 2a1 1 0 011 1v1.07c3.39.49 6 3.39 6 6.93v4l1 2v1H4v-1l1-2v-4c0-3.54 2.61-6.44 6-6.93V3a1 1 0 011-1zm0 20a2.5 2.5 0 002.45-2h-4.9A2.5 2.5 0 0012 22z"/>
+          </svg>
+        </div>
       </div>
     </div>
   </header>
@@ -1616,20 +1815,28 @@
       <div class="footer-columns">
         <!-- Coluna 1 - Logo ClockView -->
         <div class="footer-logo">
-          <div class="logo">
-            <div class="logo-text">
-              <div class="logo-line">
-                Clock<span class="view">View</span>
+          <div class="logo-main-container">
+            <div class="logo-text-container">
+              <div class="logo-line-box">
+                <div class="logo-line">
+                  Clock<span class="view">View</span>
+                </div>
               </div>
-              <div class="dot-online">. o n l i n e</div>
+              <div class="dot-online-box">
+                <div class="dot-online">. o n l i n e</div>
+              </div>
             </div>
-            <div class="icon-box">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                <path d="M12 2a1 1 0 011 1v1.07c3.39.49 6 3.39 6 6.93v4l1 2v1H4v-1l1-2v-4c0-3.54 2.61-6.44 6-6.93V3a1 1 0 011-1zm0 20a2.5 2.5 0 002.45-2h-4.9A2.5 2.5 0 0012 22z"/>
-              </svg>
+            <div class="icon-container">
+              <div class="icon-box">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                  <path d="M12 2a1 1 0 011 1v1.07c3.39.49 6 3.39 6 6.93v4l1 2v1H4v-1l1-2v-4c0-3.54 2.61-6.44 6-6.93V3a1 1 0 011-1zm0 20a2.5 2.5 0 002.45-2h-4.9A2.5 2.5 0 0012 22z"/>
+                </svg>
+              </div>
             </div>
           </div>
-          <div class="header-slogan">The right time, on your time</div>
+          <div class="slogan-box">
+            <div class="header-slogan">The right time, on your time</div>
+          </div>
         </div>
         
         <!-- Coluna 2 - Redes Sociais -->
@@ -2143,9 +2350,9 @@
     const body = document.body;
 
     darkModeToggle.addEventListener('click', () => {
-      body.classList.toggle('dark-mode');
-      localStorage.setItem('darkMode', body.classList.contains('dark-mode'));
-      darkModeToggle.textContent = body.classList.contains('dark-mode') ? 'LIGHT MODE' : 'DARK MODE';
+      body.classList.toggle('light-mode');
+      localStorage.setItem('lightMode', body.classList.contains('light-mode'));
+      darkModeToggle.textContent = body.classList.contains('light-mode') ? 'DARK MODE' : 'LIGHT MODE';
     });
 
     // ===== FOCUS MODE TOGGLE =====
@@ -2174,9 +2381,9 @@
     });
 
     // Verificar preferência de modo escuro ao carregar
-    if (localStorage.getItem('darkMode') === 'true') {
-      body.classList.add('dark-mode');
-      darkModeToggle.textContent = 'LIGHT MODE';
+    if (localStorage.getItem('lightMode') === 'true') {
+      body.classList.add('light-mode');
+      darkModeToggle.textContent = 'DARK MODE';
     }
 
     // Verificar preferência de modo foco ao carregar
