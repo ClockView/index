@@ -21,6 +21,10 @@
   <title>ClockView - World Time Manager</title>
   <!-- Font Awesome para ícones sociais -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <!-- SDK Google Identity Services -->
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <!-- Biblioteca para decodificar o token JWT -->
+  <script src="https://cdn.jsdelivr.net/npm/jwt-decode@3.1.2/build/jwt-decode.min.js"></script>
   <!-- Schema Markup -->
   <script type="application/ld+json">
   {
@@ -570,6 +574,7 @@
       color: var(--primary-color);
       overflow-y: auto;
       max-height: calc(80vh - 60px);
+      text-align: left;
     }
 
     .terms-popup h3 {
@@ -615,23 +620,26 @@
       color: var(--primary-color);
       overflow-y: auto;
       max-height: calc(80vh - 60px);
+      text-align: left;
     }
 
     .how-to-use-popup h3 {
       margin-top: 0;
-      color: var(--primary-color);
+      color: white;
+      background: linear-gradient(90deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+      padding: 10px;
+      border-radius: 4px;
       text-align: center;
     }
 
     .how-to-use-popup h4 {
-      color: var(--primary-color);
+      color: var(--secondary-color);
       margin-top: 20px;
-      border-bottom: 1px solid var(--secondary-color);
-      padding-bottom: 5px;
+      padding-top: 10px;
+      border-top: 2px solid var(--secondary-color);
     }
 
     .how-to-use-popup ul {
-      text-align: left;
       padding-left: 20px;
     }
 
@@ -645,6 +653,102 @@
       right: 10px;
       cursor: pointer;
       color: var(--primary-color);
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    /* Account Popup */
+    .account-popup {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 80%;
+      max-width: 500px;
+      max-height: 80vh;
+      background: var(--bg-color);
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      z-index: 9999;
+      overflow: hidden;
+    }
+
+    .account-popup-top {
+      height: 8px;
+      width: 100%;
+      background: linear-gradient(90deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    }
+
+    .account-popup-content {
+      padding: 20px;
+      color: var(--text-color);
+      overflow-y: auto;
+      max-height: calc(80vh - 60px);
+    }
+
+    .account-popup h3 {
+      margin-top: 0;
+      color: var(--secondary-color);
+      text-align: center;
+    }
+
+    .account-popup .user-info {
+      margin: 20px 0;
+      padding: 15px;
+      background: rgba(17, 53, 76, 0.3);
+      border-radius: 8px;
+      text-align: center;
+    }
+
+    .account-popup .user-info p {
+      margin: 5px 0;
+      color: var(--text-color);
+    }
+
+    .account-popup .label {
+      color: var(--secondary-color);
+      font-weight: 500;
+      text-align: right;
+      padding-right: 10px;
+      width: 50%;
+    }
+
+    .account-popup .value {
+      color: var(--text-color);
+      font-weight: bold;
+      text-align: left;
+      width: 50%;
+    }
+
+    .light-mode .account-popup .value {
+      color: var(--primary-color);
+    }
+
+    .light-mode .account-popup .user-info p {
+      color: var(--primary-color);
+    }
+
+    .account-popup .account-row {
+      display: flex;
+      margin-bottom: 8px;
+    }
+
+    .account-popup .section-title {
+      background: linear-gradient(90deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+      padding: 8px;
+      border-radius: 4px;
+      margin: 20px 0 10px;
+      color: white;
+      text-align: center;
+    }
+
+    .account-popup-close {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      cursor: pointer;
+      color: var(--text-color);
       font-size: 1.5rem;
       font-weight: bold;
     }
@@ -715,7 +819,7 @@
       margin: 0 auto;
     }
 
-    .dark-mode-toggle, .focus-mode-toggle {
+    .dark-mode-toggle, .focus-mode-toggle, .google-login {
       color: var(--secondary-color);
       font-size: 0.9rem;
       font-weight: 500;
@@ -727,6 +831,7 @@
 
     .light-mode .dark-mode-toggle, 
     .light-mode .focus-mode-toggle,
+    .light-mode .google-login,
     .light-mode .menu-icon {
       color: var(--primary-color);
     }
@@ -779,6 +884,47 @@
 
     .light-mode .menu-dropdown a:hover {
       background-color: #333;
+    }
+
+    /* Custom Google Sign-In Button */
+    .custom-google-signin {
+      background-color: #11354c;
+      color: #5ac7f5;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 15px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      text-transform: uppercase;
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: background-color 0.3s;
+    }
+
+    .custom-google-signin:hover {
+      background-color: #0a2536;
+    }
+
+    .custom-google-signin i {
+      font-size: 1.2rem;
+    }
+
+    /* Alternative style when custom button is not possible */
+    .google-login-standard {
+      color: var(--secondary-color);
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .light-mode .google-login-standard {
+      color: var(--primary-color);
     }
 
     /* Custom Share Button */
@@ -1184,6 +1330,22 @@
       font-weight: bold;
     }
 
+    /* Your Events Section */
+    .your-events-section {
+      padding: 20px;
+      background-color: var(--bg-color);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .focus-mode .your-events-section {
+      display: none;
+    }
+
     @keyframes swing {
       0%, 100% { transform: rotate(0deg); }
       25% { transform: rotate(6deg); }
@@ -1372,7 +1534,7 @@
         padding: 5px 10px;
       }
 
-      .dark-mode-toggle, .focus-mode-toggle {
+      .dark-mode-toggle, .focus-mode-toggle, .google-login {
         font-size: 0.8rem;
       }
 
@@ -1401,20 +1563,27 @@
     </div>
   </div>
 
+  <!-- Área do botão de login Google -->
+  <div id="g_id_onload"
+       data-client_id="115929853576-su0jjhiii9sjgcvd4ovmc9rtrt4kctc7.apps.googleusercontent.com"
+       data-callback="handleCredentialResponse"
+       data-auto_prompt="false">
+  </div>
+
   <!-- Controles reposicionados abaixo da segunda faixa -->
   <div class="header-controls-container">
     <div class="header-controls">
       <div class="focus-mode-toggle" id="focusModeToggle">FOCUS MODE</div>
       <div class="dark-mode-toggle" id="darkModeToggle">LIGHT MODE</div>
+      <div class="google-login-standard" id="googleLoginStandard">LOGIN WITH GOOGLE</div>
+      <span id="menuUser" style="margin-left: 12px; font-weight: bold;"></span>
       <button class="menu-icon">☰</button>
     </div>
     <div class="menu-dropdown" id="menuDropdown">
       <a href="#" id="myAccount">My Account</a>
       <a href="#" id="howToUse">How to Use</a>
-      <a href="#" id="settings">Settings</a>
       <a href="#" id="blog">Blog</a>
       <a href="#" id="codestore">CODESTORE</a>
-      <a href="#" id="googleSignIn">Sign in with Google</a>
     </div>
   </div>
 
@@ -1424,6 +1593,13 @@
     <div class="account-popup-content">
       <span class="account-popup-close" id="accountPopupClose">&times;</span>
       <h3>Welcome!</h3>
+      
+      <div class="user-info">
+        <p id="userName">Name: Not logged in</p>
+        <p id="userEmail">Email: Not logged in</p>
+        <button id="logoutButton" style="margin-top: 10px; width: 100%;">LOGOUT</button>
+      </div>
+      
       <div class="account-row">
         <span class="label">Member since:</span>
         <span class="value">00/00/0000</span>
@@ -1436,6 +1612,12 @@
         <span class="label">Logged time:</span>
         <span class="value">000d 00h 00m 00s</span>
       </div>
+      
+      <div class="section-title">Your Events</div>
+      <div style="height: 20px;"></div>
+      
+      <div class="section-title">Your Local Time</div>
+      <div style="height: 20px;"></div>
     </div>
   </div>
 
@@ -1567,7 +1749,7 @@
     <div class="how-to-use-popup-top"></div>
     <div class="how-to-use-popup-content">
       <span class="how-to-use-popup-close" id="howToUsePopupClose">&times;</span>
-      <h3>ClockView - The Complete Time Experience</h3>
+      <h3>ClockView.online | The right time, on your time.</h3>
       
       <h4>1. Main Clock & Date</h4>
       <ul>
@@ -1731,6 +1913,31 @@
            (adsbygoogle = window.adsbygoogle || []).push({});
       </script>
     </div>
+
+    <div class="section-title-container">
+      <h2 class="section-title">Your Events | Countdown</h2>
+    </div>
+
+    <section class="your-events-section">
+      <div class="event-box">
+        <img src="GTAVI.jpg" alt="GTA VI Release" />
+        <h4 style="color: var(--text-color);">Release of GTA VI</h4>
+        <div style="font-size: 0.9rem; color: var(--text-color); margin-bottom: 8px;">May 26, 2026</div>
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 4px;">
+          <span style="font-size: 1rem; color: var(--text-color);">Time Left</span>
+          <span id="yourCountdownGTA" style="font-size: 1.4rem; font-weight: bold; color: var(--text-color);">000d 00h 00m 00s</span>
+        </div>
+      </div>
+      <div class="event-box">
+        <img src="FH6.jpg" alt="Forza Horizon 6 Release" />
+        <h4 style="color: var(--text-color);">Launch of FORZA HORIZON 6</h4>
+        <div style="font-size: 0.9rem; color: var(--text-color); margin-bottom: 8px;">November 15, 2026</div>
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 4px;">
+          <span style="font-size: 1rem; color: var(--text-color);">Time Left</span>
+          <span id="yourCountdownFH6" style="font-size: 1.4rem; font-weight: bold; color: var(--text-color);">000d 00h 00m 00s</span>
+        </div>
+      </div>
+    </section>
 
     <div class="section-title-container">
       <h2 class="section-title">World Clocks</h2>
@@ -1915,6 +2122,60 @@
 
   <!-- Main Application Script -->
   <script>
+    // ===== GOOGLE LOGIN =====
+    function handleCredentialResponse(response) {
+      const userData = jwt_decode(response.credential);
+
+      // Salva no localStorage
+      localStorage.setItem("clockviewUser", JSON.stringify(userData));
+
+      // Atualiza a interface
+      updateUserUI(userData);
+      
+      // Mostra o popup da conta
+      document.getElementById('accountPopup').style.display = 'block';
+      viewCounter.displayStats();
+    }
+
+    function updateUserUI(user) {
+      const userSpan = document.getElementById("menuUser");
+      if (userSpan && user) {
+        userSpan.textContent = `Hi, ${user.name}`;
+      }
+      
+      // Atualiza o popup da conta
+      document.getElementById('userName').textContent = `Name: ${user.name}`;
+      document.getElementById('userEmail').textContent = `Email: ${user.email}`;
+    }
+
+    function logout() {
+      localStorage.removeItem("clockviewUser");
+      document.getElementById("menuUser").textContent = "";
+      document.getElementById('userName').textContent = "Name: Not logged in";
+      document.getElementById('userEmail').textContent = "Email: Not logged in";
+      document.getElementById('accountPopup').style.display = 'none';
+      
+      // Google logout
+      google.accounts.id.disableAutoSelect();
+    }
+
+    // Verifica se o usuário está logado ao carregar a página
+    window.onload = () => {
+      const storedUser = localStorage.getItem("clockviewUser");
+      if (storedUser) {
+        const user = JSON.parse(storedUser);
+        updateUserUI(user);
+      }
+      
+      // Configura o botão de logout
+      document.getElementById('logoutButton').addEventListener('click', logout);
+      
+      // Configura o botão de login personalizado
+      document.getElementById('googleLoginStandard').addEventListener('click', () => {
+        google.accounts.id.prompt();
+      });
+    };
+
     // ===== VIEW COUNTER SYSTEM =====
     const viewCounter = {
       init() {
@@ -2405,36 +2666,6 @@
       focusModeToggle.textContent = 'NORMAL MODE';
     }
 
-    // ===== GOOGLE SIGN-IN =====
-    function handleCredentialResponse(response) {
-      // Process the Google Sign-In response
-      console.log("Google Sign-In response:", response);
-      // You would typically verify the ID token on your server here
-    }
-
-    document.getElementById('googleSignIn').addEventListener('click', () => {
-      // Initialize Google Sign-In
-      google.accounts.id.initialize({
-        client_id: 'YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com',
-        callback: handleCredentialResponse
-      });
-      
-      // Prompt the user to select a Google account
-      google.accounts.id.prompt();
-    });
-
-    // Auto login with Google on page load
-    window.onload = function() {
-      google.accounts.id.initialize({
-        client_id: 'YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com',
-        callback: handleCredentialResponse,
-        auto_select: true
-      });
-      
-      // Try to automatically sign in the user
-      google.accounts.id.prompt();
-    };
-
     // ===== PWA =====
     let deferredPrompt;
     const installContainer = document.getElementById('installContainer');
@@ -2553,6 +2784,8 @@
     const countdownInterval = setInterval(() => {
       updateCountdown("countdownGTA", "May 26, 2026 00:00:00 GMT-0300");
       updateCountdown("countdownFH6", "November 15, 2026 00:00:00 GMT-0300");
+      updateCountdown("yourCountdownGTA", "May 26, 2026 00:00:00 GMT-0300");
+      updateCountdown("yourCountdownFH6", "November 15, 2026 00:00:00 GMT-0300");
     }, 1000);
 
     window.addEventListener('beforeunload', () => {
