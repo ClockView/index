@@ -394,6 +394,17 @@
       width: 250px;
       text-align: center;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+      position: relative;
+    }
+
+    .event-box::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 4px;
+      height: 100%;
+      background: linear-gradient(to bottom, var(--primary-color) 0%, var(--secondary-color) 100%);
     }
 
     .event-box img {
@@ -1241,20 +1252,30 @@
 
     .account-popup-content {
       padding: 20px;
-      color: var(--primary-color);
+      color: var(--text-color);
     }
 
     .account-popup h3 {
       margin-top: 0;
-      color: var(--primary-color);
+      color: var(--secondary-color);
+      text-align: center;
     }
 
-    .account-popup p {
-      margin: 10px 0;
+    .account-popup .user-info {
+      margin: 20px 0;
+      padding: 15px;
+      background: rgba(17, 53, 76, 0.3);
+      border-radius: 8px;
+      text-align: center;
+    }
+
+    .account-popup .user-info p {
+      margin: 5px 0;
+      color: var(--text-color);
     }
 
     .account-popup .label {
-      color: var(--primary-color);
+      color: var(--secondary-color);
       font-weight: 500;
       text-align: right;
       padding-right: 10px;
@@ -1262,10 +1283,14 @@
     }
 
     .account-popup .value {
-      color: var(--secondary-color);
+      color: var(--text-color);
       font-weight: bold;
       text-align: left;
       width: 50%;
+    }
+
+    .light-mode .account-popup .value {
+      color: var(--primary-color);
     }
 
     .account-popup .account-row {
@@ -1278,7 +1303,7 @@
       top: 10px;
       right: 10px;
       cursor: pointer;
-      color: var(--primary-color);
+      color: var(--text-color);
       font-size: 1.5rem;
       font-weight: bold;
     }
@@ -1306,12 +1331,12 @@
 
     .codestore-popup-content {
       padding: 20px;
-      color: var(--primary-color);
+      color: var(--text-color);
     }
 
     .codestore-popup h3 {
       margin-top: 0;
-      color: var(--primary-color);
+      color: var(--secondary-color);
       text-align: center;
     }
 
@@ -1325,7 +1350,7 @@
       top: 10px;
       right: 10px;
       cursor: pointer;
-      color: var(--primary-color);
+      color: var(--text-color);
       font-size: 1.5rem;
       font-weight: bold;
     }
@@ -1563,20 +1588,13 @@
     </div>
   </div>
 
-  <!-- Área do botão de login Google -->
-  <div id="g_id_onload"
-       data-client_id="115929853576-su0jjhiii9sjgcvd4ovmc9rtrt4kctc7.apps.googleusercontent.com"
-       data-callback="handleCredentialResponse"
-       data-auto_prompt="false">
-  </div>
-
   <!-- Controles reposicionados abaixo da segunda faixa -->
   <div class="header-controls-container">
     <div class="header-controls">
       <div class="focus-mode-toggle" id="focusModeToggle">FOCUS MODE</div>
       <div class="dark-mode-toggle" id="darkModeToggle">LIGHT MODE</div>
-      <div class="google-login-standard" id="googleLoginStandard">LOGIN WITH GOOGLE</div>
-      <span id="menuUser" style="margin-left: 12px; font-weight: bold;"></span>
+      <div id="googleLoginStandard"></div>
+      <div id="userSection" style="display: none;"></div>
       <button class="menu-icon">☰</button>
     </div>
     <div class="menu-dropdown" id="menuDropdown">
@@ -1602,15 +1620,15 @@
       
       <div class="account-row">
         <span class="label">Member since:</span>
-        <span class="value">00/00/0000</span>
+        <span class="value" style="color: var(--text-color);">00/00/0000</span>
       </div>
       <div class="account-row">
         <span class="label">Your visits:</span>
-        <span class="value">0000</span>
+        <span class="value" style="color: var(--text-color);">0000</span>
       </div>
       <div class="account-row">
         <span class="label">Logged time:</span>
-        <span class="value">000d 00h 00m 00s</span>
+        <span class="value" style="color: var(--text-color);">000d 00h 00m 00s</span>
       </div>
       
       <div class="section-title">Your Events</div>
@@ -1920,22 +1938,19 @@
 
     <section class="your-events-section">
       <div class="event-box">
-        <img src="GTAVI.jpg" alt="GTA VI Release" />
-        <h4 style="color: var(--text-color);">Release of GTA VI</h4>
-        <div style="font-size: 0.9rem; color: var(--text-color); margin-bottom: 8px;">May 26, 2026</div>
+        <img src="gravida.jpg" alt="Birth of Jesus" />
+        <h4 style="color: var(--text-color);">Birth of Jesus</h4>
+        <div style="font-size: 0.9rem; color: var(--text-color); margin-bottom: 8px;">December 25, 2025</div>
         <div style="display: flex; flex-direction: column; align-items: center; gap: 4px;">
           <span style="font-size: 1rem; color: var(--text-color);">Time Left</span>
           <span id="yourCountdownGTA" style="font-size: 1.4rem; font-weight: bold; color: var(--text-color);">000d 00h 00m 00s</span>
         </div>
       </div>
       <div class="event-box">
-        <img src="FH6.jpg" alt="Forza Horizon 6 Release" />
-        <h4 style="color: var(--text-color);">Launch of FORZA HORIZON 6</h4>
-        <div style="font-size: 0.9rem; color: var(--text-color); margin-bottom: 8px;">November 15, 2026</div>
-        <div style="display: flex; flex-direction: column; align-items: center; gap: 4px;">
-          <span style="font-size: 1rem; color: var(--text-color);">Time Left</span>
-          <span id="yourCountdownFH6" style="font-size: 1.4rem; font-weight: bold; color: var(--text-color);">000d 00h 00m 00s</span>
-        </div>
+        <h4 style="color: var(--text-color);">Add Your Special Event</h4>
+        <p style="font-size: 0.9rem; color: var(--text-color); text-align: left; margin: 10px 0;">
+          Add a photo with the most important date for you and track the countdown! Whether it's your wedding, the birth of a child, that long-awaited trip or the purchase of your first car. And the best part, you can share with all your friends and relatives. Click Learn More and have fun!
+        </p>
       </div>
     </section>
 
@@ -2092,88 +2107,78 @@
     </div>
   </footer>
   
-  <!-- Language Detection and Translation System -->
+  <!-- Google Identity Services (GIS) -->
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
   <script>
-    // Detecção automática + fallback
-    const userLang = navigator.language.split('-')[0];
-    const supportedLangs = ['en', 'pt', 'es']; // Adicione mais
+    function handleCredentialResponse(response) {
+      // Decodifica o JWT (JSON Web Token)
+      const data = parseJwt(response.credential);
+      const user = {
+        name: data.name,
+        email: data.email,
+        picture: data.picture
+      };
 
-    if (!supportedLangs.includes(userLang)) {
-      document.documentElement.lang = 'en';
-    } else {
-      document.documentElement.lang = userLang;
+      // Armazena no localStorage
+      localStorage.setItem("clockviewUser", JSON.stringify(user));
+
+      // Atualiza interface com o usuário
+      updateUserUI(user);
     }
 
-    // Carrega traduções dinamicamente
-    document.addEventListener('DOMContentLoaded', () => {
-      const elements = document.querySelectorAll('[data-i18n]');
-      
-      fetch(`/assets/translations/${document.documentElement.lang}.json`)
-        .then(res => res.json())
-        .then(translations => {
-          elements.forEach(el => {
-            const key = el.getAttribute('data-i18n');
-            el.textContent = translations[key];
-          });
-        })
-        .catch(() => console.log('Translation not found'));
-    });
-  </script>
-
-  <!-- Main Application Script -->
-  <script>
-    // ===== GOOGLE LOGIN =====
-    function handleCredentialResponse(response) {
-      const userData = jwt_decode(response.credential);
-
-      // Salva no localStorage
-      localStorage.setItem("clockviewUser", JSON.stringify(userData));
-
-      // Atualiza a interface
-      updateUserUI(userData);
-      
-      // Mostra o popup da conta
-      document.getElementById('accountPopup').style.display = 'block';
-      viewCounter.displayStats();
+    function parseJwt(token) {
+      const base64Url = token.split('.')[1];
+      const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+      const jsonPayload = decodeURIComponent(
+        atob(base64)
+          .split('')
+          .map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2))
+          .join('')
+      );
+      return JSON.parse(jsonPayload);
     }
 
     function updateUserUI(user) {
-      const userSpan = document.getElementById("menuUser");
-      if (userSpan && user) {
-        userSpan.textContent = `Hi, ${user.name}`;
-      }
-      
-      // Atualiza o popup da conta
-      document.getElementById('userName').textContent = `Name: ${user.name}`;
-      document.getElementById('userEmail').textContent = `Email: ${user.email}`;
+      const userSection = document.getElementById("userSection");
+      userSection.innerHTML = `
+        <div class="user-info">
+          <img src="${user.picture}" alt="${user.name}" class="user-avatar" />
+          <span class="user-name">${user.name}</span>
+          <button id="logoutButton" class="logout-btn">Sair</button>
+        </div>
+      `;
+      document.getElementById("googleLoginStandard").style.display = "none";
+      document.getElementById("userSection").style.display = "flex";
+
+      // Reativa logout após renderização
+      document.getElementById("logoutButton").addEventListener("click", logout);
     }
 
     function logout() {
       localStorage.removeItem("clockviewUser");
-      document.getElementById("menuUser").textContent = "";
-      document.getElementById('userName').textContent = "Name: Not logged in";
-      document.getElementById('userEmail').textContent = "Email: Not logged in";
-      document.getElementById('accountPopup').style.display = 'none';
-      
-      // Google logout
-      google.accounts.id.disableAutoSelect();
+      location.reload(); // Atualiza a página para mostrar o botão de login novamente
     }
 
-    // Verifica se o usuário está logado ao carregar a página
     window.onload = () => {
+      google.accounts.id.initialize({
+        client_id: "115929853576-su0jjhiii9sjgcvd4ovmc9rtrt4kctc7.apps.googleusercontent.com",
+        callback: handleCredentialResponse
+      });
+
+      google.accounts.id.renderButton(
+        document.getElementById("googleLoginStandard"),
+        { theme: "outline", size: "large" }
+      );
+
+      // Mostra prompt de login, se possível
+      google.accounts.id.prompt();
+
+      // Verifica se usuário já está logado
       const storedUser = localStorage.getItem("clockviewUser");
       if (storedUser) {
         const user = JSON.parse(storedUser);
         updateUserUI(user);
       }
-      
-      // Configura o botão de logout
-      document.getElementById('logoutButton').addEventListener('click', logout);
-      
-      // Configura o botão de login personalizado
-      document.getElementById('googleLoginStandard').addEventListener('click', () => {
-        google.accounts.id.prompt();
-      });
     };
 
     // ===== VIEW COUNTER SYSTEM =====
@@ -2784,8 +2789,7 @@
     const countdownInterval = setInterval(() => {
       updateCountdown("countdownGTA", "May 26, 2026 00:00:00 GMT-0300");
       updateCountdown("countdownFH6", "November 15, 2026 00:00:00 GMT-0300");
-      updateCountdown("yourCountdownGTA", "May 26, 2026 00:00:00 GMT-0300");
-      updateCountdown("yourCountdownFH6", "November 15, 2026 00:00:00 GMT-0300");
+      updateCountdown("yourCountdownGTA", "December 25, 2025 00:00:00 GMT-0300");
     }, 1000);
 
     window.addEventListener('beforeunload', () => {
@@ -2795,7 +2799,5 @@
       clearInterval(countdownInterval);
     });
   </script>
-  <!-- Google API para login -->
-  <script src="https://apis.google.com/js/platform.js" async defer></script>
 </body>
 </html>
