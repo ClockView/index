@@ -1506,43 +1506,50 @@
       }
 
       .logo-main-container {
-        flex-direction: column;
+        flex-direction: row;
         align-items: center;
+        flex-wrap: nowrap;
       }
 
       .logo-text-container {
-        align-items: center;
-        padding-right: 0;
+        align-items: flex-end;
+        padding-right: 15px;
+        flex-shrink: 1;
+        min-width: 0;
       }
 
       .logo-line-box, .dot-online-box, .slogan-box {
-        text-align: center;
+        text-align: right;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
 
       .icon-container {
         justify-content: center;
-        margin-top: 10px;
+        margin-top: 0;
+        flex-shrink: 0;
       }
 
       .footer-logo .logo-main-container {
-        flex-direction: column;
+        flex-direction: row;
         align-items: center;
       }
 
       .footer-logo .logo-text-container {
-        align-items: center;
-        padding-right: 0;
+        align-items: flex-end;
+        padding-right: 15px;
       }
 
       .footer-logo .logo-line-box, 
       .footer-logo .dot-online-box, 
       .footer-logo .slogan-box {
-        text-align: center;
+        text-align: right;
       }
 
       .footer-logo .icon-container {
         justify-content: center;
-        margin-top: 10px;
+        margin-top: 0;
       }
 
       .dark-mode-toggle, 
@@ -1551,7 +1558,27 @@
       }
 
       .custom-google-signin {
-        margin-left: 0;
+        margin-left: auto;
+      }
+
+      @media (max-width: 400px) {
+        .logo-line {
+          font-size: 28px;
+        }
+        
+        .dot-online {
+          font-size: 9px;
+        }
+        
+        .icon-box {
+          width: 50px;
+          height: 65px;
+        }
+        
+        .icon-box svg {
+          width: 26px;
+          height: 26px;
+        }
       }
     }
 
@@ -1991,7 +2018,7 @@
         <div style="font-size: 1.5rem; color: var(--text-color); margin-bottom: 8px;">February 4, 2026</div>
         <div style="font-size: 0.8rem; color: var(--text-color); margin-bottom: 8px;">Event created by:</div>
         <div class="creator-info">
-          <img src="https://lh3.googleusercontent.com/a/ACg8ocJy1Z7X8yQ4J4J4J4J4J4J4J4J4J4J4J4J4J4J4J4J4=s96-c" alt="Creator" class="creator-avatar">
+          <img src="https://lh3.googleusercontent.com/a/ACg8ocJy1Z7X8yQ4J4J4J4J4J4J4J4J4J4J4J4J4J4J4J4=s96-c" alt="Creator" class="creator-avatar">
           <span class="creator-name">Any User</span>
         </div>
         <div style="display: flex; flex-direction: column; align-items: center; gap: 4px;">
