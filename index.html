@@ -411,6 +411,7 @@
       width: 100%;
       border-radius: 10px;
       margin-bottom: 10px;
+      position: relative;
     }
 
     .event-box h4 {
@@ -420,6 +421,37 @@
 
     .event-box p {
       font-size: 1.2rem;
+      color: var(--text-color);
+    }
+
+    .event-box .example-banner {
+      position: absolute;
+      top: 15px;
+      left: 0;
+      right: 0;
+      background-color: rgba(17, 53, 76, 0.8);
+      color: white;
+      padding: 4px;
+      font-size: 0.8rem;
+      text-align: center;
+    }
+
+    .event-box .creator-info {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 8px 0;
+      gap: 8px;
+    }
+
+    .event-box .creator-avatar {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+    }
+
+    .event-box .creator-name {
+      font-size: 0.9rem;
       color: var(--text-color);
     }
 
@@ -537,15 +569,11 @@
       font-size: 0.8rem;
       opacity: 0.9;
       text-align: center;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 8px;
     }
 
     .copyright-line {
       white-space: nowrap;
-      margin: 0;
+      margin: 5px 0;
     }
 
     .terms-link {
@@ -745,15 +773,6 @@
       margin-bottom: 8px;
     }
 
-    .account-popup .section-title {
-      background: linear-gradient(90deg, var(--primary-color) 0%, var(--secondary-color) 100%);
-      padding: 8px;
-      border-radius: 4px;
-      margin: 20px 0 10px;
-      color: white;
-      text-align: center;
-    }
-
     .account-popup-close {
       position: absolute;
       top: 10px;
@@ -822,17 +841,17 @@
 
     .header-controls {
       display: flex;
-      justify-content: flex-end;
+      justify-content: flex-start;
       align-items: center;
-      gap: 15px;
+      gap: 10px;
       padding: 8px 20px;
       max-width: 1200px;
       margin: 0 auto;
     }
 
-    .dark-mode-toggle, .focus-mode-toggle, .google-login {
+    .dark-mode-toggle, .focus-mode-toggle {
       color: var(--secondary-color);
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       font-weight: 500;
       cursor: pointer;
       transition: color 0.3s;
@@ -862,7 +881,7 @@
     .menu-dropdown {
       position: absolute;
       top: 100%;
-      right: 20px;
+      left: 20px;
       background: white;
       border-radius: 8px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.15);
@@ -903,8 +922,8 @@
       color: #5ac7f5;
       border: none;
       border-radius: 8px;
-      padding: 10px 15px;
-      font-size: 0.9rem;
+      padding: 4px 8px;
+      font-size: 0.7rem;
       font-weight: 500;
       cursor: pointer;
       text-transform: uppercase;
@@ -912,8 +931,9 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 8px;
+      gap: 4px;
       transition: background-color 0.3s;
+      margin-left: auto;
     }
 
     .custom-google-signin:hover {
@@ -921,17 +941,18 @@
     }
 
     .custom-google-signin i {
-      font-size: 1.2rem;
+      font-size: 0.9rem;
     }
 
     /* Alternative style when custom button is not possible */
     .google-login-standard {
       color: var(--secondary-color);
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       font-weight: 500;
       cursor: pointer;
       text-transform: uppercase;
       white-space: nowrap;
+      margin-left: auto;
     }
 
     .light-mode .google-login-standard {
@@ -1473,10 +1494,11 @@
       
       .header-controls {
         padding: 6px 12px;
+        gap: 8px;
       }
       
       .menu-dropdown {
-        right: 10px;
+        left: 10px;
       }
 
       .logo-header {
@@ -1522,6 +1544,15 @@
         justify-content: center;
         margin-top: 10px;
       }
+
+      .dark-mode-toggle, 
+      .focus-mode-toggle {
+        font-size: 0.8rem;
+      }
+
+      .custom-google-signin {
+        margin-left: 0;
+      }
     }
 
     @media (orientation: landscape) {
@@ -1557,10 +1588,12 @@
       
       .header-controls {
         padding: 5px 10px;
+        gap: 6px;
       }
 
-      .dark-mode-toggle, .focus-mode-toggle, .google-login {
-        font-size: 0.8rem;
+      .dark-mode-toggle, 
+      .focus-mode-toggle {
+        font-size: 0.75rem;
       }
 
       .menu-icon {
@@ -1591,14 +1624,19 @@
   <!-- Controles reposicionados abaixo da segunda faixa -->
   <div class="header-controls-container">
     <div class="header-controls">
+      <button class="menu-icon">☰</button>
       <div class="focus-mode-toggle" id="focusModeToggle">FOCUS MODE</div>
       <div class="dark-mode-toggle" id="darkModeToggle">LIGHT MODE</div>
-      <div id="googleLoginStandard"></div>
+      <button class="custom-google-signin" id="googleLoginCustom">
+        <i class="fab fa-google"></i> Login
+      </button>
+      <div id="googleLoginStandard" style="display: none;"></div>
       <div id="userSection" style="display: none;"></div>
-      <button class="menu-icon">☰</button>
     </div>
     <div class="menu-dropdown" id="menuDropdown">
       <a href="#" id="myAccount">My Account</a>
+      <a href="#" id="yourEvents">Your Events</a>
+      <a href="#" id="aboutUs">About us</a>
       <a href="#" id="howToUse">How to Use</a>
       <a href="#" id="blog">Blog</a>
       <a href="#" id="codestore">CODESTORE</a>
@@ -1614,7 +1652,6 @@
       
       <div class="user-info">
         <p id="userName">Name: Not logged in</p>
-        <p id="userEmail">Email: Not logged in</p>
         <button id="logoutButton" style="margin-top: 10px; width: 100%;">LOGOUT</button>
       </div>
       
@@ -1630,12 +1667,6 @@
         <span class="label">Logged time:</span>
         <span class="value" style="color: var(--text-color);">000d 00h 00m 00s</span>
       </div>
-      
-      <div class="section-title">Your Events</div>
-      <div style="height: 20px;"></div>
-      
-      <div class="section-title">Your Local Time</div>
-      <div style="height: 20px;"></div>
     </div>
   </div>
 
@@ -1939,12 +1970,35 @@
     <section class="your-events-section">
       <div class="event-box">
         <img src="gravida.jpg" alt="Birth of Jesus" />
+        <div class="example-banner">Example Event</div>
         <h4 style="color: var(--text-color);">Birth of Jesus</h4>
-        <div style="font-size: 0.9rem; color: var(--text-color); margin-bottom: 8px;">December 25, 2025</div>
+        <div style="font-size: 1.5rem; color: var(--text-color); margin-bottom: 8px;">December 25, 2025</div>
+        <div style="font-size: 0.8rem; color: var(--text-color); margin-bottom: 8px;">Event created by:</div>
+        <div class="creator-info">
+          <img src="https://lh3.googleusercontent.com/a/ACg8ocJy1Z7X8yQ4J4J4J4J4J4J4J4J4J4J4J4J4J4J4J4J4=s96-c" alt="Creator" class="creator-avatar">
+          <span class="creator-name">John Doe</span>
+        </div>
         <div style="display: flex; flex-direction: column; align-items: center; gap: 4px;">
           <span style="font-size: 1rem; color: var(--text-color);">Time Left</span>
           <span id="yourCountdownGTA" style="font-size: 1.4rem; font-weight: bold; color: var(--text-color);">000d 00h 00m 00s</span>
         </div>
+        <button style="margin-top: 10px; width: 100%; padding: 8px; font-size: 0.9rem;">Share</button>
+      </div>
+      <div class="event-box">
+        <img src="carro.jpg" alt="My first car" />
+        <div class="example-banner">Example Event</div>
+        <h4 style="color: var(--text-color);">My first car</h4>
+        <div style="font-size: 1.5rem; color: var(--text-color); margin-bottom: 8px;">February 4, 2026</div>
+        <div style="font-size: 0.8rem; color: var(--text-color); margin-bottom: 8px;">Event created by:</div>
+        <div class="creator-info">
+          <img src="https://lh3.googleusercontent.com/a/ACg8ocJy1Z7X8yQ4J4J4J4J4J4J4J4J4J4J4J4J4J4J4J4J4=s96-c" alt="Creator" class="creator-avatar">
+          <span class="creator-name">Any User</span>
+        </div>
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 4px;">
+          <span style="font-size: 1rem; color: var(--text-color);">Time Left</span>
+          <span id="yourCountdownCar" style="font-size: 1.4rem; font-weight: bold; color: var(--text-color);">000d 00h 00m 00s</span>
+        </div>
+        <button style="margin-top: 10px; width: 100%; padding: 8px; font-size: 0.9rem;">Share</button>
       </div>
       <div class="event-box">
         <h4 style="color: var(--text-color);">Add Your Special Event</h4>
@@ -1983,7 +2037,7 @@
       <div class="event-box">
         <img src="GTAVI.jpg" alt="Capa do jogo GTA VI" />
         <h4 style="color: var(--text-color);">Release of GTA VI</h4>
-        <div style="font-size: 0.9rem; color: var(--text-color); margin-bottom: 8px;">May 26, 2026</div>
+        <div style="font-size: 1.5rem; color: var(--text-color); margin-bottom: 8px;">May 26, 2026</div>
         <div style="display: flex; flex-direction: column; align-items: center; gap: 4px;">
           <span style="font-size: 1rem; color: var(--text-color);">Time Left</span>
           <span id="countdownGTA" style="font-size: 1.4rem; font-weight: bold; color: var(--text-color);">000d 00h 00m 00s</span>
@@ -1992,7 +2046,7 @@
       <div class="event-box">
         <img src="FH6.jpg" alt="Capa do jogo Forza Horizon 6" />
         <h4 style="color: var(--text-color);">Launch of FORZA HORIZON 6</h4>
-        <div style="font-size: 0.9rem; color: var(--text-color); margin-bottom: 8px;">November 15, 2026</div>
+        <div style="font-size: 1.5rem; color: var(--text-color); margin-bottom: 8px;">November 15, 2026</div>
         <div style="display: flex; flex-direction: column; align-items: center; gap: 4px;">
           <span style="font-size: 1rem; color: var(--text-color);">Time Left</span>
           <span id="countdownFH6" style="font-size: 1.4rem; font-weight: bold; color: var(--text-color);">000d 00h 00m 00s</span>
@@ -2102,7 +2156,8 @@
       </div>
 
       <div class="copyright">
-        <div class="copyright-line"><a href="#" class="terms-link" id="termsLink">Terms of Use and Privacy</a> | ClockView.online©2025 | The right time, on your time | All rights reserved</div>
+        <div class="copyright-line"><a href="#" class="terms-link" id="termsLink">Terms of Use and Privacy</a></div>
+        <div class="copyright-line">© 2025 ClockView.online. All rights reserved.</div>
       </div>
     </div>
   </footer>
@@ -2167,7 +2222,7 @@
 
       google.accounts.id.renderButton(
         document.getElementById("googleLoginStandard"),
-        { theme: "outline", size: "large" }
+        { theme: "outline", size: "medium" }
       );
 
       // Mostra prompt de login, se possível
@@ -2179,6 +2234,11 @@
         const user = JSON.parse(storedUser);
         updateUserUI(user);
       }
+
+      // Configura o botão de login personalizado
+      document.getElementById('googleLoginCustom').addEventListener('click', () => {
+        document.querySelector('#googleLoginStandard > div').click();
+      });
     };
 
     // ===== VIEW COUNTER SYSTEM =====
@@ -2569,9 +2629,23 @@
       viewCounter.displayStats();
     });
 
+    document.getElementById('yourEvents').addEventListener('click', (e) => {
+      e.preventDefault();
+      // Implementar conteúdo do Your Events aqui
+      alert("Your Events content will be added soon");
+      menuDropdown.style.display = 'none';
+    });
+
     document.getElementById('codestore').addEventListener('click', (e) => {
       e.preventDefault();
       codestorePopup.style.display = 'block';
+      menuDropdown.style.display = 'none';
+    });
+
+    document.getElementById('aboutUs').addEventListener('click', (e) => {
+      e.preventDefault();
+      // Implementar conteúdo do About Us aqui
+      alert("About Us content will be added soon");
       menuDropdown.style.display = 'none';
     });
 
@@ -2790,6 +2864,7 @@
       updateCountdown("countdownGTA", "May 26, 2026 00:00:00 GMT-0300");
       updateCountdown("countdownFH6", "November 15, 2026 00:00:00 GMT-0300");
       updateCountdown("yourCountdownGTA", "December 25, 2025 00:00:00 GMT-0300");
+      updateCountdown("yourCountdownCar", "February 4, 2026 00:00:00 GMT-0300");
     }, 1000);
 
     window.addEventListener('beforeunload', () => {
