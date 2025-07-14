@@ -59,6 +59,7 @@
       --icon-fill: #ffffff;
       --ad-bg: #0a1e2c;
       --primary-color-rgb: 17, 53, 76;
+      --icon-color: #6EC1FF; /* Azul claro padrão para ícones no modo escuro */
       font-size: 16px;
     }
 
@@ -75,6 +76,7 @@
       --icon-box-border: #11354c;
       --icon-fill: #11354c;
       --ad-bg: #f7f7f7;
+      --icon-color: #001F3F; /* Azul escuro padrão para ícones no modo claro */
     }
 
     .focus-mode {
@@ -90,6 +92,17 @@
       --icon-box-border: #ffffff;
       --icon-fill: #ffffff;
       --ad-bg: transparent;
+    }
+
+    /* Estilo padrão para ícones Lucide */
+    button i[data-lucide], 
+    #menuButton i[data-lucide],
+    #shareButton i[data-lucide],
+    #fullscreenToggle i[data-lucide],
+    #darkModeToggle i[data-lucide],
+    #focusToggle i[data-lucide] {
+      stroke: var(--icon-color);
+      transition: stroke 0.3s ease;
     }
 
     body {
@@ -1694,9 +1707,6 @@
       <button id="menuButton" class="icon-button" title="Menu">
         <i data-lucide="menu"></i>
       </button>
-      <button id="fullscreenToggle" class="icon-button" title="Fullscreen">
-        <i data-lucide="maximize"></i>
-      </button>
       <button id="focusToggle" class="icon-button" title="Focus Mode">
         <i data-lucide="search"></i>
       </button>
@@ -1950,26 +1960,7 @@
 
   <header class="logo-header">
     <div class="logo-main-container">
-      <div class="logo-text-container">
-        <div class="logo-line-box">
-          <div class="logo-line">
-            Clock<span class="view">View</span>
-          </div>
-        </div>
-        <div class="dot-online-box">
-          <div class="dot-online">. o n l i n e</div>
-        </div>
-        <div class="slogan-box">
-          <div class="header-slogan">The right time, on your time</div>
-        </div>
-      </div>
-      <div class="icon-container">
-        <div class="icon-box">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-            <path d="M12 2a1 1 0 011 1v1.07c3.39.49 6 3.39 6 6.93v4l1 2v1H4v-1l1-2v-4c0-3.54 2.61-6.44 6-6.93V3a1 1 0 011-1zm0 20a2.5 2.5 0 002.45-2h-4.9A2.5 2.5 0 0012 22z"/>
-          </svg>
-        </div>
-      </div>
+      <img id="headerLogo" src="logocv3.png" alt="ClockView Logo" style="max-width: 300px; height: auto;">
     </div>
   </header>
 
@@ -2085,10 +2076,7 @@
       </div>
     </section>
 
-    <div class="section-title-container">
-      <h2 class="section-title">World Clocks</h2>
-    </div>
-
+    <!-- Ad moved above World Clocks section as requested -->
     <div class="ad-slot ad-middle">
       <!-- AdSense Medium Rectangle (300x250) -->
       <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_PUBLISHER_ID"
@@ -2100,6 +2088,10 @@
       <script>
            (adsbygoogle = window.adsbygoogle || []).push({});
       </script>
+    </div>
+
+    <div class="section-title-container">
+      <h2 class="section-title">World Clocks</h2>
     </div>
 
     <section class="world-clock" id="worldClockSection"></section>
@@ -2194,28 +2186,7 @@
       <div class="footer-columns">
         <!-- Coluna 1 - Logo ClockView -->
         <div class="footer-logo">
-          <div class="logo-main-container">
-            <div class="logo-text-container">
-              <div class="logo-line-box">
-                <div class="logo-line">
-                  Clock<span class="view">View</span>
-                </div>
-              </div>
-              <div class="dot-online-box">
-                <div class="dot-online">. o n l i n e</div>
-              </div>
-              <div class="slogan-box">
-                <div class="header-slogan">The right time, on your time</div>
-              </div>
-            </div>
-            <div class="icon-container">
-              <div class="icon-box">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                  <path d="M12 2a1 1 0 011 1v1.07c3.39.49 6 3.39 6 6.93v4l1 2v1H4v-1l1-2v-4c0-3.54 2.61-6.44 6-6.93V3a1 1 0 011-1zm0 20a2.5 2.5 0 002.45-2h-4.9A2.5 2.5 0 0012 22z"/>
-                </svg>
-              </div>
-            </div>
-          </div>
+          <img src="logovc2.png" alt="ClockView Logo" style="max-width: 200px; height: auto;">
         </div>
         
         <!-- Coluna 2 - Redes Sociais -->
@@ -2324,6 +2295,9 @@
       document.getElementById('googleLoginCustom').addEventListener('click', () => {
         document.querySelector('#googleLoginStandard > div').click();
       });
+
+      // Atualiza logo conforme modo claro/escuro
+      updateLogoBasedOnTheme();
     };
 
     // ===== VIEW COUNTER SYSTEM =====
@@ -2811,10 +2785,20 @@
       lucide.createIcons(); // Atualiza ícone visualmente
     }
 
+    function updateLogoBasedOnTheme() {
+      const headerLogo = document.getElementById('headerLogo');
+      if (body.classList.contains('light-mode')) {
+        headerLogo.src = 'logocv3.png';
+      } else {
+        headerLogo.src = 'logovc2.png';
+      }
+    }
+
     darkModeToggle.addEventListener('click', () => {
       body.classList.toggle('light-mode');
       localStorage.setItem('lightMode', body.classList.contains('light-mode'));
       updateDarkModeIcon();
+      updateLogoBasedOnTheme();
     });
 
     // ===== FOCUS MODE TOGGLE =====
@@ -2833,32 +2817,6 @@
 
       // Re-renderizar ícones Lucide
       lucide.createIcons();
-    });
-
-    // ===== FULLSCREEN TOGGLE =====
-    const fullscreenButton = document.getElementById('fullscreenToggle');
-    const fullscreenIcon = fullscreenButton.querySelector('i');
-
-    function toggleFullscreen() {
-      if (!document.fullscreenElement) {
-        document.documentElement.requestFullscreen();
-        fullscreenIcon.setAttribute('data-lucide', 'minimize');
-      } else {
-        document.exitFullscreen();
-        fullscreenIcon.setAttribute('data-lucide', 'maximize');
-      }
-      lucide.createIcons(); // Atualiza visual
-    }
-
-    // Clique no botão
-    fullscreenButton.addEventListener('click', toggleFullscreen);
-
-    // Detecta ESC ou saída manual do fullscreen
-    document.addEventListener('fullscreenchange', () => {
-      if (!document.fullscreenElement) {
-        fullscreenIcon.setAttribute('data-lucide', 'maximize');
-        lucide.createIcons();
-      }
     });
 
     // Exit focus mode with ESC key
@@ -2985,6 +2943,7 @@
     viewCounter.init();
     lucide.createIcons(); // Inicializa os ícones Lucide
     updateDarkModeIcon(); // Ajusta ícone de início conforme o modo
+    updateLogoBasedOnTheme(); // Atualiza logo conforme tema inicial
 
     // ===== CONTADOR GERAL =====
     function updateCountdown(elementId, targetDate) {
