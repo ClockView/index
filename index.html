@@ -94,15 +94,13 @@
       --ad-bg: transparent;
     }
 
-    /* Estilo padrão para ícones Lucide */
-    button i[data-lucide], 
-    #menuButton i[data-lucide],
-    #shareButton i[data-lucide],
-    #fullscreenToggle i[data-lucide],
-    #darkModeToggle i[data-lucide],
-    #focusToggle i[data-lucide] {
-      stroke: var(--icon-color);
-      transition: stroke 0.3s ease;
+    /* Estilo para ícones Lucide com base no tema */
+    body.light-mode .lucide {
+      stroke: #0f3d5d; /* azul escuro no modo claro */
+    }
+
+    body:not(.light-mode) .lucide {
+      stroke: #65b9f4; /* azul claro no modo escuro */
     }
 
     body {
@@ -199,7 +197,7 @@
 
     .focus-mode .clock-container {
       font-size: clamp(4rem, 10vw, 8rem);
-      margin: 10px auto 5px;
+      margin: 0 auto;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -973,7 +971,7 @@
     .share-btn svg {
       width: 24px;
       height: 24px;
-      fill: white;
+      fill: #5ac7f5;
     }
 
     .share-options {
@@ -1739,7 +1737,9 @@
       
       <div class="user-info">
         <p id="userName">Name: Not logged in</p>
-        <button id="logoutButton" style="margin-top: 10px; width: 100%;">LOGOUT</button>
+        <button id="logoutButton" class="custom-google-signin" style="margin-top: 10px; width: 100%; padding: 10px 20px; font-size: 0.9rem;">
+          <i class="fab fa-google"></i> LOGOUT
+        </button>
       </div>
       
       <div class="account-row">
@@ -2195,7 +2195,7 @@
           <div class="social-icons">
             <a href="https://www.instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
             <a href="https://www.facebook.com" target="_blank"><i class="fab fa-facebook"></i></a>
-            <a href="https://twitter.com" target="_blank"><i class="fab fa-x-twitter"></i></a>
+            <a href="https://x.com/ClockViewonline" target="_blank"><i class="fab fa-x-twitter"></i></a>
             <a href="https://www.youtube.com" target="_blank"><i class="fab fa-youtube"></i></a>
             <a href="https://wa.me/seunumero" target="_blank"><i class="fab fa-whatsapp"></i></a>
           </div>
@@ -2205,7 +2205,7 @@
         <div class="footer-partner">
           <div class="partner-text">Visit also:</div>
           <a href="https://www.spinmix.online" target="_blank" class="spinmix-logo">
-            <img src="LOGOMARCA-SPINMIX-CAP.png" alt="SPINMIX.online">
+            <img src="spinmixlogo1.png" alt="SPINMIX.online">
           </a>
         </div>
       </div>
