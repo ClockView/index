@@ -1442,6 +1442,83 @@
       color: #5ac7f5 !important;
     }
 
+    /* Event title ribbon styles */
+    .event-title-ribbon {
+      background: linear-gradient(90deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+      padding: 3px 10px;
+      border-radius: 6px;
+      margin-bottom: 10px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .event-title {
+      font-weight: bold;
+      font-size: 1.1rem;
+      color: white;
+      margin: 0;
+    }
+
+    /* Event description box styles */
+    .event-description {
+      background: rgba(17, 53, 76, 0.2);
+      border-radius: 8px;
+      padding: 10px;
+      margin-bottom: 10px;
+      color: var(--text-color);
+      font-size: 0.9rem;
+      text-align: left;
+      max-height: 80px;
+      overflow-y: auto;
+    }
+
+    /* Date color styles */
+    .event-date {
+      font-size: 1.5rem;
+      margin-bottom: 8px;
+    }
+
+    body:not(.light-mode) .event-date {
+      color: #5ac7f5;
+    }
+
+    .light-mode .event-date {
+      color: #0f3d5d;
+    }
+
+    /* Time left color styles */
+    .time-left {
+      font-size: 1.4rem;
+      font-weight: bold;
+    }
+
+    body:not(.light-mode) .time-left {
+      color: #5ac7f5;
+    }
+
+    .light-mode .time-left {
+      color: #0f3d5d;
+    }
+
+    /* Share text button styles */
+    .share-text-btn {
+      margin-top: 10px;
+      width: 100%;
+      padding: 8px;
+      font-size: 0.9rem;
+      background: none;
+      border: none;
+      color: var(--secondary-color);
+      cursor: pointer;
+      text-decoration: underline;
+    }
+
+    .light-mode .share-text-btn {
+      color: var(--primary-color);
+    }
+
     @keyframes swing {
       0%, 100% { transform: rotate(0deg); }
       25% { transform: rotate(6deg); }
@@ -1610,6 +1687,23 @@
 
       .custom-google-signin {
         margin-left: auto;
+      }
+
+      /* Center footer logo on mobile */
+      @media (max-width: 480px) {
+        .footer-logo {
+          align-items: center;
+          text-align: center;
+        }
+        .footer-logo .logo-text-container {
+          align-items: center;
+          padding-right: 0;
+        }
+        .footer-logo .logo-line-box, 
+        .footer-logo .dot-online-box, 
+        .footer-logo .slogan-box {
+          text-align: center;
+        }
       }
 
       @media (max-width: 400px) {
@@ -2039,34 +2133,44 @@
       <div class="event-box">
         <img src="gravida.jpg" alt="Birth of Jesus" />
         <div class="example-banner">Example Event</div>
-        <h4 style="color: var(--text-color);">Birth of Jesus</h4>
-        <div style="font-size: 1.5rem; color: var(--text-color); margin-bottom: 8px;">December 25, 2025</div>
+        <div class="event-title-ribbon">
+          <h4 class="event-title">Birth of Jesus</h4>
+        </div>
+        <div class="event-description">
+          I, Mary and my husband John are very happy about the arrival of Jesus. Follow every second that precedes this unique and special moment in our lives.
+        </div>
+        <div class="event-date">December 25, 2025</div>
         <div style="font-size: 0.8rem; color: var(--text-color); margin-bottom: 8px;">Event created by:</div>
         <div class="creator-info">
           <img src="https://lh3.googleusercontent.com/a/ACg8ocJy1Z7X8yQ4J4J4J4J4J4J4J4J4J4J4J4J4=s96-c" alt="Creator" class="creator-avatar">
-          <span class="creator-name">John Doe</span>
+          <span class="creator-name">MaryPeace</span>
         </div>
         <div style="display: flex; flex-direction: column; align-items: center; gap: 4px;">
           <span style="font-size: 1rem; color: var(--text-color);">Time Left</span>
-          <span id="yourCountdownGTA" style="font-size: 1.4rem; font-weight: bold; color: var(--text-color);">000d 00h 00m 00s</span>
+          <span id="yourCountdownGTA" class="time-left">000d 00h 00m 00s</span>
         </div>
-        <button style="margin-top: 10px; width: 100%; padding: 8px; font-size: 0.9rem;">Share</button>
+        <button class="share-text-btn">Share this event</button>
       </div>
       <div class="event-box">
         <img src="carro.jpg" alt="My first car" />
         <div class="example-banner">Example Event</div>
-        <h4 style="color: var(--text-color);">My first car</h4>
-        <div style="font-size: 1.5rem; color: var(--text-color); margin-bottom: 8px;">February 4, 2026</div>
+        <div class="event-title-ribbon">
+          <h4 class="event-title">My first car</h4>
+        </div>
+        <div class="event-description">
+          I'm looking forward to turning 16 and getting my first car! Come count this time with me.
+        </div>
+        <div class="event-date">February 4, 2026</div>
         <div style="font-size: 0.8rem; color: var(--text-color); margin-bottom: 8px;">Event created by:</div>
         <div class="creator-info">
           <img src="https://lh3.googleusercontent.com/a/ACg8ocJy1Z7X8yQ4J4J4J4J4J4J4J4J4J4J4J4J4=s96-c" alt="Creator" class="creator-avatar">
-          <span class="creator-name">Any User</span>
+          <span class="creator-name">guilherme_sans</span>
         </div>
         <div style="display: flex; flex-direction: column; align-items: center; gap: 4px;">
           <span style="font-size: 1rem; color: var(--text-color);">Time Left</span>
-          <span id="yourCountdownCar" style="font-size: 1.4rem; font-weight: bold; color: var(--text-color);">000d 00h 00m 00s</span>
+          <span id="yourCountdownCar" class="time-left">000d 00h 00m 00s</span>
         </div>
-        <button style="margin-top: 10px; width: 100%; padding: 8px; font-size: 0.9rem;">Share</button>
+        <button class="share-text-btn">Share this event</button>
       </div>
       <div class="event-box">
         <h4 style="color: var(--text-color);">Share Every Second of Your Achievements</h4>
@@ -2093,7 +2197,7 @@
         </p>
         <p style="font-size: 0.9rem; color: var(--text-color); text-align: left; margin: 10px 0;">
           Let everyone count down with you!
-          <br>Click "Learn More" and create your moment now!
+          <br>Click <a href="#" id="learnMoreLink" style="color: var(--secondary-color);">"Learn More"</a> and create your moment now!
         </p>
       </div>
     </section>
@@ -2320,6 +2424,12 @@
 
       // Atualiza logo conforme modo claro/escuro
       updateLogoBasedOnTheme();
+
+      // Configura o link "Learn More"
+      document.getElementById('learnMoreLink').addEventListener('click', function(e) {
+        e.preventDefault();
+        alert("Learn More popup content will be added later");
+      });
     };
 
     // ===== VIEW COUNTER SYSTEM =====
