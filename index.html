@@ -1752,7 +1752,7 @@
       </div>
       <div class="account-row">
         <span class="label">Logged time:</span>
-        <span class="value" style="color: var(--text-color);">000d 00h 00m 00s</span>
+        <span class="value" style="color: var(--text-color);">000d 00h 00m</span>
       </div>
     </div>
   </div>
@@ -1960,7 +1960,7 @@
 
   <header class="logo-header">
     <div class="logo-main-container">
-      <img id="headerLogo" src="logocv3.png" alt="ClockView Logo" style="max-width: 300px; height: auto;">
+      <img id="headerLogo" src="logoclockfe.png" alt="ClockView Logo" style="max-width: 300px; height: auto;">
     </div>
   </header>
 
@@ -2186,7 +2186,7 @@
       <div class="footer-columns">
         <!-- Coluna 1 - Logo ClockView -->
         <div class="footer-logo">
-          <img src="logocv2.png" alt="ClockView Logo" style="max-width: 200px; height: auto;">
+          <img src="logoclockfe.png" alt="ClockView Logo" style="max-width: 200px; height: auto;">
         </div>
         
         <!-- Coluna 2 - Redes Sociais -->
@@ -2324,14 +2324,13 @@
         const days = Math.floor(timeSpent / 86400);
         const hours = Math.floor((timeSpent % 86400) / 3600);
         const mins = Math.floor((timeSpent % 3600) / 60);
-        const secs = timeSpent % 60;
         
         document.querySelectorAll('.account-row .value')[0].textContent = 
           new Date().toLocaleDateString();
         document.querySelectorAll('.account-row .value')[1].textContent = 
           localStorage.getItem('viewCount') || '0';
         document.querySelectorAll('.account-row .value')[2].textContent = 
-          `${days}d ${hours}h ${mins}m ${secs}s`;
+          `${days.toString().padStart(3, '0')}d ${hours.toString().padStart(2, '0')}h ${mins.toString().padStart(2, '0')}m`;
       }
     };
 
@@ -2788,9 +2787,9 @@
     function updateLogoBasedOnTheme() {
       const headerLogo = document.getElementById('headerLogo');
       if (body.classList.contains('light-mode')) {
-        headerLogo.src = 'logovc3.png';
+        headerLogo.src = 'logoclockfc.png';
       } else {
-        headerLogo.src = 'logocv2.png';
+        headerLogo.src = 'logoclockfe.png';
       }
     }
 
